@@ -226,14 +226,20 @@ function PlatformIntro() {
 // ============ ORBITAL RINGS COMPONENT (MAGIC CIRCLE) ============
 function OrbitalRings({ color, isActive }: { color: string, isActive: boolean }) {
     return (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] pointer-events-none mt-[70px]" 
-            style={{ 
+        <div
+            className="pointer-events-none"
+            style={{
+                position: 'absolute',
+                top: '85px',
+                left: '50%',
+                width: '260px',
+                height: '260px',
                 zIndex: 0,
-                perspective: '1200px',
-                transform: 'rotateX(75deg)' // Tilt to create the "below the moon" ground plane effect
+                perspective: '900px',
+                transform: 'translateX(-50%) rotateX(73deg)',
             }}
         >
-            <motion.div 
+            <motion.div
                 className="w-full h-full"
                 animate={isActive ? { rotateZ: 360 } : { rotateZ: 0 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -249,14 +255,14 @@ function OrbitalRings({ color, isActive }: { color: string, isActive: boolean })
                     {/* 1. OUTERMOST BORDER */}
                     <circle cx="100" cy="100" r="98" stroke="#FFD166" strokeWidth="2" opacity="1" filter="url(#gold-glow)" />
                     <circle cx="100" cy="100" r="94" stroke="#FFF9E0" strokeWidth="0.8" opacity="0.8" />
-                    
+
                     {/* 2. RUNIC BAND (Double Ring) */}
                     <circle cx="100" cy="100" r="82" stroke="#FFD166" strokeWidth="1.5" opacity="0.9" />
                     <circle cx="100" cy="100" r="68" stroke="#FFD166" strokeWidth="1.5" opacity="0.9" />
-                    
+
                     {/* Connecting ticks in the band */}
                     {[...Array(36)].map((_, i) => (
-                        <line 
+                        <line
                             key={`tick-${i}`}
                             x1={100 + 68 * Math.cos((i * 10) * Math.PI / 180)}
                             y1={100 + 68 * Math.sin((i * 10) * Math.PI / 180)}
@@ -271,10 +277,10 @@ function OrbitalRings({ color, isActive }: { color: string, isActive: boolean })
                     {/* Styled Runes (Representational) */}
                     {[...Array(12)].map((_, i) => (
                         <g key={`rune-${i}`} transform={`rotate(${i * 30 + 15}, 100, 100) translate(100, 24)`}>
-                            <path 
-                                d="M-4 -2 C-2 2, 2 2, 4 -2 M0 -5 L0 5" 
-                                stroke="#FFF9E0" 
-                                strokeWidth="1.5" 
+                            <path
+                                d="M-4 -2 C-2 2, 2 2, 4 -2 M0 -5 L0 5"
+                                stroke="#FFF9E0"
+                                strokeWidth="1.5"
                                 strokeLinecap="round"
                                 opacity="1"
                             />
@@ -282,10 +288,10 @@ function OrbitalRings({ color, isActive }: { color: string, isActive: boolean })
                     ))}
 
                     {/* 3. CENTRAL PENTAGRAM (Star from ring.png) */}
-                    <path 
-                        d="M100 32 L120 88 L180 88 L134 122 L152 180 L100 144 L48 180 L66 122 L20 88 L80 88 Z" 
-                        stroke="#FFD166" 
-                        strokeWidth="2" 
+                    <path
+                        d="M100 32 L120 88 L180 88 L134 122 L152 180 L100 144 L48 180 L66 122 L20 88 L80 88 Z"
+                        stroke="#FFD166"
+                        strokeWidth="2"
                         strokeLinejoin="round"
                         filter="url(#gold-glow)"
                         opacity="1"
@@ -294,10 +300,10 @@ function OrbitalRings({ color, isActive }: { color: string, isActive: boolean })
                     {/* 4. INNER CIRCLES (Inside Star) */}
                     <circle cx="100" cy="100" r="45" stroke="#FFD166" strokeWidth="1.5" opacity="0.9" />
                     <circle cx="100" cy="100" r="41" stroke="#FFF9E0" strokeWidth="0.8" opacity="0.7" />
-                    
+
                     {/* 5. CENTER GLOW (Where the moon sits) */}
                     <circle cx="100" cy="100" r="40" fill={`radial-gradient(circle, ${color}60 0%, transparent 80%)`} />
-                    
+
                     {/* Connecting lines to star points */}
                     <line x1="100" y1="100" x2="100" y2="32" stroke="#FFF9E0" strokeWidth="0.8" opacity="0.7" />
                     <line x1="100" y1="100" x2="180" y2="88" stroke="#FFF9E0" strokeWidth="0.8" opacity="0.7" />
@@ -306,6 +312,47 @@ function OrbitalRings({ color, isActive }: { color: string, isActive: boolean })
                     <line x1="100" y1="100" x2="20" y2="88" stroke="#FFF9E0" strokeWidth="0.8" opacity="0.7" />
                 </svg>
             </motion.div>
+        </div>
+    );
+}
+
+// ============ NEBULA DANCING BACKGROUND ============
+function NebulaDancingBackground() {
+    return (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+            {/* Intense drifting nebula clouds - INCREASED VISIBILITY */}
+            {[
+                { color: '#3E3EFF', top: '5%', left: '-10%', size: '900px', delay: 0, duration: 30 }, // Imperial Blue
+                { color: '#FFD166', top: '35%', right: '-15%', size: '1000px', delay: 4, duration: 35 }, // Gold
+                { color: '#00FFC0', bottom: '-10%', left: '10%', size: '850px', delay: 2, duration: 28 }, // Emerald
+                { color: '#7373FF', top: '15%', right: '15%', size: '950px', delay: 7, duration: 40 }, // Soft Blue
+            ].map((nebula, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute rounded-full blur-[120px] mix-blend-screen"
+                    style={{
+                        width: nebula.size,
+                        height: nebula.size,
+                        top: nebula.top,
+                        left: nebula.left,
+                        right: nebula.right,
+                        bottom: nebula.bottom,
+                        background: `radial-gradient(circle, ${nebula.color}33 0%, ${nebula.color}11 50%, transparent 80%)`,
+                    }}
+                    animate={{
+                        x: [0, 100, -80, 0],
+                        y: [0, -80, 80, 0],
+                        scale: [1, 1.25, 0.85, 1],
+                        opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                        duration: nebula.duration,
+                        repeat: Infinity,
+                        delay: nebula.delay,
+                        ease: "easeInOut",
+                    }}
+                />
+            ))}
         </div>
     );
 }
@@ -328,6 +375,7 @@ function HorizontalMoonsPhilosophy() {
     return (
         <section ref={containerRef} className="relative" style={{ height: '500vh', backgroundColor: 'var(--color-void)' }}>
             <div className="sticky top-0 h-screen overflow-hidden">
+                <NebulaDancingBackground />
                 <div className="absolute inset-0 z-0 pointer-events-none">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140vw] h-[140vh] opacity-15"
                         style={{ background: 'radial-gradient(circle, var(--color-imperial-900) 0%, transparent 80%)' }}
@@ -346,8 +394,8 @@ function HorizontalMoonsPhilosophy() {
                     </motion.h2>
                 </div>
                 {/* Carousel moon cards */}
-                <div className="absolute inset-0 flex items-center justify-center overflow-hidden px-4 pt-24 md:pt-32">
-                    <div className="relative w-full flex items-center justify-center" style={{ height: 'min(80vh, 650px)', perspective: '1500px' }}>
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden px-4 pt-20 md:pt-24">
+                    <div className="relative w-full flex items-center justify-center" style={{ height: 'min(84vh, 700px)', perspective: '1500px' }}>
 
                         {MOON_CONFIGS.map((moon, i) => {
                             const phil = MOON_PHILOSOPHIES[i];
@@ -376,31 +424,42 @@ function HorizontalMoonsPhilosophy() {
                                         color={moon.color}
                                         className="h-full"
                                     >
-                                        <div className="p-8 md:p-12 h-full flex flex-col items-center relative">
-                                            {/* Horizontal Carousel Moon Component (Realistic) */}
-                                            <div className="flex justify-center mb-16 mt-6 relative z-10">
-                                                <div className="relative flex items-center justify-center">
-                                                    <OrbitalRings color={moon.color} isActive={isActive} />
-                                                    <div
-                                                        className="absolute -inset-10 rounded-full blur-[40px] opacity-30 transition-all duration-1000 group-hover:opacity-50 pointer-events-none"
-                                                        style={{ background: `radial-gradient(circle, ${moon.color} 0%, transparent 70%)` }}
-                                                    />
-                                                    <RealisticMoon color={moon.color} id={`home-${moon.id}`} size={180} speed={isActive ? 40 : 100} />
+                                        <div className="p-5 md:p-7 h-full flex flex-col items-center relative">
+                                            {/* Moon + Rings — fixed-height box prevents rings from pushing MoonTag down */}
+                                            <div
+                                                className="flex-shrink-0 mt-3 mb-3"
+                                                style={{ position: 'relative', width: '100%', height: '230px' }}
+                                            >
+                                                {/* Ambient glow behind moon */}
+                                                <div
+                                                    className="absolute rounded-full blur-[40px] opacity-25 pointer-events-none"
+                                                    style={{
+                                                        width: '172px', height: '172px',
+                                                        top: '10px', left: '50%',
+                                                        transform: 'translateX(-50%)',
+                                                        background: `radial-gradient(circle, ${moon.color} 0%, transparent 70%)`,
+                                                    }}
+                                                />
+                                                {/* Rings — absolutely placed, self-centers via translateX(-50%) */}
+                                                <OrbitalRings color={moon.color} isActive={isActive} />
+                                                {/* Moon — centered on ring */}
+                                                <div style={{ position: 'absolute', top: '10px', left: '50%', transform: 'translateX(-50%)', zIndex: 1 }}>
+                                                    <RealisticMoon color={moon.color} id={`home-${moon.id}`} size={172} speed={isActive ? 40 : 100} />
                                                 </div>
                                             </div>
 
-                                            <div className="flex justify-center mb-8 relative z-10">
+                                            <div className="flex justify-center mt-16 mb-4 relative z-10 flex-shrink-0">
                                                 <MoonTag label={`${moon.id} · ${moon.meaning}`} color={moon.color} />
                                             </div>
 
                                             <h3
-                                                className="text-2xl md:text-3xl mb-6 relative z-10 text-center uppercase tracking-[0.1em] px-4"
-                                                style={{ fontFamily: 'var(--font-heading)', color: '#F0EDE8', lineHeight: 1.2 }}
+                                                className="text-xl md:text-2xl mb-3 relative z-10 text-center uppercase tracking-[0.1em] px-3 flex-shrink-0"
+                                                style={{ fontFamily: 'var(--font-heading)', color: '#F0EDE8', lineHeight: 1.25 }}
                                             >
                                                 {phil?.philosophy}
                                             </h3>
                                             <p
-                                                className="text-sm md:text-base leading-relaxed relative z-10 text-center flex-1 px-4"
+                                                className="text-sm md:text-base leading-relaxed relative z-10 text-center px-4 pb-4 flex-1 overflow-y-auto"
                                                 style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
                                             >
                                                 {phil?.desc}

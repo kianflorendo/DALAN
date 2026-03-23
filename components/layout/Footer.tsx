@@ -30,13 +30,13 @@ export default function Footer() {
                     <div className="lg:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-4 group">
                             <span
-                                className="text-lg tracking-wider text-gradient-gold"
-                                style={{ fontFamily: 'var(--font-display)' }}
+                                className="text-lg tracking-wider"
+                                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-gold)' }}
                             >
                                 DALAN
                             </span>
                         </Link>
-                        <p className="text-sm leading-relaxed mb-6" style={{ color: '#5C5850', fontFamily: 'var(--font-body)' }}>
+                        <p className="text-sm leading-relaxed mb-6" style={{ color: '#A09A8E', fontFamily: 'var(--font-body)' }}>
                             AI-driven education platform rooted in Philippine values, lighting the path for every Filipino learner.
                         </p>
 
@@ -44,7 +44,7 @@ export default function Footer() {
 
                     {/* Navigation */}
                     <div>
-                        <h4 className="text-xs tracking-[0.2em] uppercase mb-5" style={{ fontFamily: 'var(--font-ui)', color: '#5C5850' }}>
+                        <h4 className="text-xs tracking-[0.2em] uppercase mb-5" style={{ fontFamily: 'var(--font-ui)', color: '#D1C9BC' }}>
                             Navigation
                         </h4>
                         <ul className="space-y-3">
@@ -53,9 +53,9 @@ export default function Footer() {
                                     <Link
                                         href={link.href}
                                         className="text-sm transition-colors duration-300"
-                                        style={{ fontFamily: 'var(--font-ui)', color: '#3A3530' }}
-                                        onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#706B63'; }}
-                                        onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#3A3530'; }}
+                                        style={{ fontFamily: 'var(--font-ui)', color: '#A09A8E' }}
+                                        onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#F0EDE8'; }}
+                                        onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#A09A8E'; }}
                                     >
                                         {link.label}
                                     </Link>
@@ -66,7 +66,7 @@ export default function Footer() {
 
                     {/* Resources */}
                     <div>
-                        <h4 className="text-xs tracking-[0.2em] uppercase mb-5" style={{ fontFamily: 'var(--font-ui)', color: '#5C5850' }}>
+                        <h4 className="text-xs tracking-[0.2em] uppercase mb-5" style={{ fontFamily: 'var(--font-ui)', color: '#D1C9BC' }}>
                             Resources
                         </h4>
                         <ul className="space-y-3">
@@ -75,9 +75,9 @@ export default function Footer() {
                                     <Link
                                         href={item.href}
                                         className="text-sm transition-colors duration-300"
-                                        style={{ fontFamily: 'var(--font-ui)', color: '#3A3530' }}
-                                        onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#706B63'; }}
-                                        onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#3A3530'; }}
+                                        style={{ fontFamily: 'var(--font-ui)', color: '#A09A8E' }}
+                                        onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#F0EDE8'; }}
+                                        onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#A09A8E'; }}
                                     >
                                         {item.label}
                                     </Link>
@@ -88,7 +88,7 @@ export default function Footer() {
 
                     {/* Connect */}
                     <div>
-                        <h4 className="text-xs tracking-[0.2em] uppercase mb-5" style={{ fontFamily: 'var(--font-ui)', color: '#5C5850' }}>
+                        <h4 className="text-xs tracking-[0.2em] uppercase mb-5" style={{ fontFamily: 'var(--font-ui)', color: '#D1C9BC' }}>
                             Connect
                         </h4>
                         <ul className="space-y-3">
@@ -97,9 +97,9 @@ export default function Footer() {
                                     <Link
                                         href={item.href}
                                         className="text-sm transition-colors duration-300"
-                                        style={{ fontFamily: 'var(--font-ui)', color: '#3A3530' }}
-                                        onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#706B63'; }}
-                                        onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#3A3530'; }}
+                                        style={{ fontFamily: 'var(--font-ui)', color: '#A09A8E' }}
+                                        onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#F0EDE8'; }}
+                                        onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#A09A8E'; }}
                                     >
                                         {item.label}
                                     </Link>
@@ -112,14 +112,14 @@ export default function Footer() {
                 {/* Bottom bar */}
                 <div className="mt-16 pt-8" style={{ borderTop: '1px solid rgba(91,91,255,0.06)' }}>
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <p className="text-xs" style={{ fontFamily: 'var(--font-mono)', color: '#2A2520' }}>
+                        <p className="text-xs" style={{ fontFamily: 'var(--font-mono)', color: '#7A756D' }}>
                             © {new Date().getFullYear()} Dalan — All rights reserved
                         </p>
                         <div className="flex items-center gap-4">
-                            <Link href="#" className="text-xs transition-colors" style={{ fontFamily: 'var(--font-ui)', color: '#2A2520' }}>
+                            <Link href="#" className="text-xs transition-colors" style={{ fontFamily: 'var(--font-ui)', color: '#7A756D' }}>
                                 Privacy Policy
                             </Link>
-                            <Link href="#" className="text-xs transition-colors" style={{ fontFamily: 'var(--font-ui)', color: '#2A2520' }}>
+                            <Link href="#" className="text-xs transition-colors" style={{ fontFamily: 'var(--font-ui)', color: '#7A756D' }}>
                                 Terms of Service
                             </Link>
                         </div>

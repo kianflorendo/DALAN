@@ -51,51 +51,51 @@ export default function Navbar() {
                 <div
                     className="transition-all duration-500"
                     style={{
-                        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-                        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-                        backgroundColor: scrolled ? 'rgba(6,6,18,0.75)' : 'transparent',
+                        backdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'none',
+                        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'none',
+                        backgroundColor: scrolled ? 'rgba(3,3,12,0.85)' : 'transparent',
                     }}
                 >
-                    <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+                    <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-14 flex items-center justify-between">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2.5 group">
+                        <Link href="/" className="flex items-center gap-3.5 group">
                             <div className="relative">
                                 <svg
-                                    width="36"
-                                    height="36"
+                                    width="34"
+                                    height="34"
                                     viewBox="0 0 36 36"
                                     className="transition-all duration-500 group-hover:scale-110"
                                     aria-hidden="true"
                                 >
                                     <defs>
                                         <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stopColor="#00D4A0" />
-                                            <stop offset="100%" stopColor="#5B5BFF" />
+                                            <stop offset="0%" stopColor="#00FFC0" />
+                                            <stop offset="100%" stopColor="#3E3EFF" />
                                         </linearGradient>
                                     </defs>
-                                    <circle cx="18" cy="18" r="16" fill="none" stroke="url(#logo-grad)" strokeWidth="1.5" opacity="0.6" />
+                                    <circle cx="18" cy="18" r="16" fill="none" stroke="url(#logo-grad)" strokeWidth="2" opacity="0.7" />
                                     <path
                                         d="M 18 5 C 27 9, 29 17, 23 26 C 21 29, 17 29, 15 26 C 10 19, 12 11, 18 5"
                                         fill="none"
                                         stroke="url(#logo-grad)"
-                                        strokeWidth="1.5"
+                                        strokeWidth="2"
                                         strokeLinecap="round"
                                     />
-                                    <circle cx="20" cy="13" r="2.5" fill="#FFD166" opacity="0.8" />
+                                    <circle cx="20" cy="13" r="2.8" fill="#FFD166" opacity="0.9" />
                                 </svg>
                                 {/* Ambient glow */}
                                 <div
                                     className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                    style={{ boxShadow: '0 0 20px rgba(0,212,160,0.3)' }}
+                                    style={{ boxShadow: '0 0 25px rgba(0,255,192,0.4)' }}
                                 />
                             </div>
                             <div className="flex items-baseline gap-0.5">
                                 <span
-                                    className="text-[22px] tracking-[0.18em] font-bold"
+                                    className="text-[18px] tracking-[0.15em] font-bold"
                                     style={{
                                         fontFamily: 'var(--font-display)',
                                         color: 'var(--color-gold)',
-                                        textShadow: '0 2px 12px rgba(0,0,0,0.9)',
+                                        textShadow: '0 2px 10px rgba(0,0,0,0.8)',
                                     }}
                                 >
                                     DALAN
@@ -104,15 +104,15 @@ export default function Navbar() {
                         </Link>
 
                         {/* Desktop Nav */}
-                        <div className="hidden lg:flex items-center gap-0.5">
+                        <div className="hidden lg:flex items-center gap-1">
                             {NAV_LINKS.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="relative px-4 py-2 text-[13px] font-medium tracking-wide transition-all duration-300 rounded-lg group/link"
+                                    className="relative px-4 py-2 text-[13px] font-medium transition-all duration-300 rounded-lg group/link"
                                     style={{
                                         fontFamily: 'var(--font-ui)',
-                                        color: isActive(link.href) ? '#F0EDE8' : '#706B63',
+                                        color: isActive(link.href) ? '#F0EDE8' : '#8A857C',
                                     }}
                                     onMouseEnter={(e) => {
                                         if (!isActive(link.href)) {
@@ -121,14 +121,14 @@ export default function Navbar() {
                                     }}
                                     onMouseLeave={(e) => {
                                         if (!isActive(link.href)) {
-                                            (e.currentTarget as HTMLElement).style.color = '#706B63';
+                                            (e.currentTarget as HTMLElement).style.color = '#8A857C';
                                         }
                                     }}
                                 >
                                     {/* Hover background */}
                                     <span
                                         className="absolute inset-0 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300"
-                                        style={{ backgroundColor: 'rgba(91,91,255,0.06)' }}
+                                        style={{ backgroundColor: 'rgba(91,91,255,0.08)' }}
                                     />
                                     <span className="relative">{link.label}</span>
                                     {/* Active indicator */}
@@ -153,20 +153,20 @@ export default function Navbar() {
                             className="hidden lg:flex items-center gap-2 px-5 py-2 text-[13px] font-medium rounded-full transition-all duration-400 group/cta"
                             style={{
                                 fontFamily: 'var(--font-ui)',
-                                color: '#00D4A0',
-                                background: 'rgba(0,212,160,0.06)',
-                                border: '1px solid rgba(0,212,160,0.2)',
+                                color: '#00FFC0',
+                                background: 'rgba(0,255,192,0.06)',
+                                border: '1px solid rgba(0,255,192,0.2)',
                             }}
                             onMouseEnter={(e) => {
                                 const el = e.currentTarget as HTMLElement;
-                                el.style.background = 'rgba(0,212,160,0.12)';
-                                el.style.borderColor = 'rgba(0,212,160,0.4)';
-                                el.style.boxShadow = '0 0 24px rgba(0,212,160,0.15)';
+                                el.style.background = 'rgba(0,255,192,0.12)';
+                                el.style.borderColor = 'rgba(0,255,192,0.4)';
+                                el.style.boxShadow = '0 0 24px rgba(0,255,192,0.15)';
                             }}
                             onMouseLeave={(e) => {
                                 const el = e.currentTarget as HTMLElement;
-                                el.style.background = 'rgba(0,212,160,0.06)';
-                                el.style.borderColor = 'rgba(0,212,160,0.2)';
+                                el.style.background = 'rgba(0,255,192,0.06)';
+                                el.style.borderColor = 'rgba(0,255,192,0.2)';
                                 el.style.boxShadow = 'none';
                             }}
                         >

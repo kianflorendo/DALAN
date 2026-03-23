@@ -156,7 +156,7 @@ export default function FaqsSection() {
     const questions = FAQS[activeCategory] || [];
 
     return (
-        <div id="faqs" className="pt-32 pb-20 relative overflow-hidden" style={{ backgroundColor: 'var(--color-void)' }}>
+        <div id="faqs" className="pt-16 pb-20 relative overflow-hidden" style={{ backgroundColor: 'var(--color-void)' }}>
             <style>{shootingStarStyles}</style>
 
             {/* Rotating Nebula Mist Effects */}

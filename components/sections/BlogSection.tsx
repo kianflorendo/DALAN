@@ -78,7 +78,7 @@ function ReadTimeMoons({ minutes }: { minutes: number }) {
 function BlogSkyLayer() {
     return (
         <div
-            className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
+            className="absolute inset-0 pointer-events-none"
             aria-hidden="true"
         >
             {/* Star field matching hero vibrancy */}
@@ -117,39 +117,15 @@ function BlogSkyLayer() {
                 })}
             </div>
 
-            {/* Floating cloud bands to echo hero video */}
-            <motion.div
-                className="absolute -bottom-24 -left-10 w-[420px] opacity-60"
-                animate={{ x: [-30, 40, -30] }}
-                transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
-            >
-                <img
-                    src="/cloud 2.png"
-                    alt="Decorative cloud"
-                    className="w-full h-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
-                />
-            </motion.div>
+            {/* Subtle sky gradient behind content removed to allow seamless bleeding */}
 
-            <motion.div
-                className="absolute -bottom-10 right-[-15%] w-[360px] opacity-55"
-                animate={{ x: [20, -40, 20] }}
-                transition={{ duration: 110, repeat: Infinity, ease: 'linear' }}
-            >
-                <img
-                    src="/japanese cloud.png"
-                    alt="Decorative cloud"
-                    className="w-full h-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
-                />
-            </motion.div>
-
-            {/* Subtle sky gradient behind content */}
-            <div
-                className="absolute inset-0"
-                style={{
-                    background:
-                        'radial-gradient(ellipse at 50% 0%, rgba(26,26,80,0.6) 0%, transparent 55%), radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,1) 55%)',
-                }}
-            />
+            {/* ── Vibrant Nebula Effect ── */}
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                <div style={{ position: 'absolute', top: '15%', left: '-5%', width: '100vw', height: '80vh', maxWidth: 1200, maxHeight: 1000, background: 'radial-gradient(ellipse, rgba(115,80,255,0.35) 0%, rgba(80,40,200,0.15) 40%, transparent 70%)', filter: 'blur(100px)' }} />
+                <div style={{ position: 'absolute', top: '40%', right: '-10%', width: '90vw', height: '70vh', maxWidth: 1000, maxHeight: 900, background: 'radial-gradient(ellipse, rgba(255,209,102,0.3) 0%, rgba(200,150,50,0.1) 40%, transparent 70%)', filter: 'blur(100px)' }} />
+                <div style={{ position: 'absolute', bottom: '-5%', left: '5%', width: '100vw', height: '60vh', maxWidth: 1400, maxHeight: 800, background: 'radial-gradient(ellipse, rgba(0,212,160,0.35) 0%, rgba(0,160,120,0.15) 40%, transparent 70%)', filter: 'blur(100px)' }} />
+                <div style={{ position: 'absolute', top: '70%', right: '10%', width: '80vw', height: '60vh', maxWidth: 1000, maxHeight: 800, background: 'radial-gradient(ellipse, rgba(255,140,107,0.35) 0%, rgba(200,100,80,0.15) 40%, transparent 70%)', filter: 'blur(100px)' }} />
+            </div>
         </div>
     );
 }
@@ -161,8 +137,8 @@ export default function BlogSection() {
     return (
         <div
             id="blog"
-            className="relative pt-8 pb-20 overflow-hidden"
-            style={{ backgroundColor: 'var(--color-void)' }}
+            className="relative pt-8 pb-12"
+            style={{ backgroundColor: 'var(--color-void)', overflowX: 'clip', zIndex: 10 }}
         >
             <BlogSkyLayer />
             <div className="max-w-7xl mx-auto px-6">
@@ -306,6 +282,7 @@ export default function BlogSection() {
                     ))}
                 </div>
             </div>
+
         </div>
     );
 }

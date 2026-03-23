@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Cinzel_Decorative, Cinzel, Crimson_Pro, Space_Mono, DM_Sans } from 'next/font/google';
 import './globals.css';
 
+// Component imports
+import Navbar from '@/components/layout/Navbar';
+
 const cinzelDecorative = Cinzel_Decorative({
   subsets: ['latin'],
   weight: ['400', '700', '900'],
@@ -68,6 +71,7 @@ export default function RootLayout({
       `}
     >
       <body>
+        <Navbar />
         {children}
       </body>
     </html>

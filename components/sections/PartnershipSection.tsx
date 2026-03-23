@@ -14,7 +14,7 @@ import { MOON_CONFIGS } from '@/lib/moon-config';
 function CosmicSolarMoon({ moon, index, total }: { moon: any; index: number; total: number }) {
     // Distribute moons evenly around the circle to prevent collisions
     const startRotation = (index / total) * 360;
-    
+
     return (
         <motion.div
             className="absolute top-1/2 left-1/2"
@@ -41,20 +41,20 @@ function CosmicSolarMoon({ moon, index, total }: { moon: any; index: number; tot
                         {/* High-Fidelity Realistic 3D SVG Moon */}
                         <div className="relative group">
                             {/* Atmospheric Glow Bloom */}
-                            <div 
+                            <div
                                 className="absolute -inset-10 rounded-full blur-3xl transition-opacity duration-700 opacity-20 group-hover:opacity-45"
                                 style={{ background: `radial-gradient(circle, ${moon.color} 0%, transparent 75%)` }}
                             />
-                            
-                            <svg 
-                                viewBox="0 0 100 100" 
-                                width={42 + (index % 3) * 10} 
-                                height={42 + (index % 3) * 10} 
-                                style={{ 
+
+                            <svg
+                                viewBox="0 0 100 100"
+                                width={42 + (index % 3) * 10}
+                                height={42 + (index % 3) * 10}
+                                style={{
                                     filter: `
                                         drop-shadow(0 0 15px ${moon.color}88) 
                                         drop-shadow(0 0 35px ${moon.color}33)
-                                    ` 
+                                    `
                                 }}
                             >
                                 <defs>
@@ -80,11 +80,11 @@ function CosmicSolarMoon({ moon, index, total }: { moon: any; index: number; tot
                                         <circle cx="50" cy="50" r="48" />
                                     </clipPath>
                                 </defs>
-                                
+
                                 <circle cx="50" cy="50" r="48" fill="#000000" />
                                 <circle cx="50" cy="50" r="48" fill={`url(#solarMoon-${moon.id}-base)`} />
                                 <circle cx="50" cy="50" r="48" fill={`url(#solarMoon-${moon.id}-base)`} filter={`url(#solarMoon-${moon.id}-noise)`} opacity="0.45" clipPath={`url(#solarMoon-${moon.id}-clip)`} />
-                                
+
                                 <g clipPath={`url(#solarMoon-${moon.id}-clip)`}>
                                     <g opacity="0.3">
                                         <ellipse cx="38" cy="30" rx="8" ry="7" fill="rgba(0,0,0,0.5)" />
@@ -111,13 +111,13 @@ function CosmicSolarMoon({ moon, index, total }: { moon: any; index: number; tot
                                 <circle cx="50" cy="50" r="48" fill={`url(#solarMoon-${moon.id}-shadow)`} />
 
                                 <g clipPath={`url(#solarMoon-${moon.id}-clip)`}>
-                                    <path 
-                                        d="M 12 35 A 48 48 0 0 1 35 12" 
-                                        fill="none" 
-                                        stroke="#ffffff" 
-                                        strokeWidth="2.5" 
-                                        strokeLinecap="round" 
-                                        opacity="0.35" 
+                                    <path
+                                        d="M 12 35 A 48 48 0 0 1 35 12"
+                                        fill="none"
+                                        stroke="#ffffff"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        opacity="0.35"
                                         style={{ filter: 'blur(1.5px)' }}
                                     />
                                     <ellipse cx="28" cy="26" rx="16" ry="11" fill="rgba(255,255,255,0.2)" transform="rotate(-35 28 26)" style={{ filter: 'blur(2.5px)' }} />
@@ -148,17 +148,17 @@ function MoonSolarSystem3D() {
             </div>
 
             {/* True 3D Perspective Scene */}
-            <div 
+            <div
                 className="relative flex items-center justify-center w-full h-full"
-                style={{ 
+                style={{
                     perspective: '1400px',
                     transformStyle: 'preserve-3d'
                 }}
             >
                 {/* Tilted Orbital Plane */}
-                <div 
+                <div
                     className="relative flex items-center justify-center"
-                    style={{ 
+                    style={{
                         transform: 'rotateX(72deg) translateY(15%)',
                         transformStyle: 'preserve-3d'
                     }}
@@ -189,12 +189,12 @@ function MoonSolarSystem3D() {
 
                     {/* Central Core Glow - Embedded in 3D plane so moons orbit AROUND it */}
                     <div className="absolute top-1/2 left-1/2" style={{ transform: 'translate(-50%, -50%) rotateX(-72deg)' }}>
-                        <motion.div 
+                        <motion.div
                             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-white blur-[80px] opacity-15"
                             animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.2, 0.1] }}
                             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                         />
-                        <motion.div 
+                        <motion.div
                             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-[#FFD166] blur-[35px] opacity-40"
                             animate={{ scale: [1, 1.15, 1] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -225,13 +225,13 @@ function MoonSolarSystem3D() {
                             backgroundColor: color,
                             boxShadow: size > 1.2 ? `0 0 4px ${color}` : 'none',
                         }}
-                        animate={{ 
+                        animate={{
                             opacity: [0.1, 0.7, 0.1],
                             scale: size > 1 ? [1, 1.3, 1] : [1, 1.1, 1]
                         }}
-                        transition={{ 
-                            duration: 2 + Math.random() * 5, 
-                            repeat: Infinity, 
+                        transition={{
+                            duration: 2 + Math.random() * 5,
+                            repeat: Infinity,
                             delay: Math.random() * 10,
                             ease: "easeInOut"
                         }}
@@ -486,7 +486,7 @@ function NebulaDancingBackground() {
                     }}
                 />
             ))}
-            
+
             {/* Subtle drifting space dust */}
             <div className="absolute inset-0 opacity-30">
                 {[...Array(20)].map((_, i) => (
@@ -530,13 +530,13 @@ function NebulaDancingBackground() {
                                 backgroundColor: color,
                                 boxShadow: size > 1.2 ? `0 0 4px ${color}` : 'none',
                             }}
-                            animate={{ 
+                            animate={{
                                 opacity: [0.1, 0.8, 0.1],
                                 scale: size > 1 ? [1, 1.2, 1] : [1, 1.1, 1]
                             }}
-                            transition={{ 
-                                duration: 3 + Math.random() * 5, 
-                                repeat: Infinity, 
+                            transition={{
+                                duration: 3 + Math.random() * 5,
+                                repeat: Infinity,
                                 delay: Math.random() * 5,
                                 ease: "easeInOut"
                             }}
@@ -617,9 +617,9 @@ export default function PartnershipSection() {
             </section>
 
             {/* Tiers Section with Full-Width Nebula Background */}
-            <section className="relative py-16 overflow-hidden">
+            <section className="relative pt-16 pb-0" style={{ overflowX: 'clip' }}>
                 <NebulaDancingBackground />
-                
+
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     {/* Partnership Tiers */}
                     <motion.h2
@@ -670,10 +670,10 @@ export default function PartnershipSection() {
                                             background: `radial-gradient(ellipse, ${tier.color}44 0%, ${tier.color}22 35%, transparent 70%)`,
                                             filter: 'blur(20px)',
                                         }}
-                                        animate={{ 
-                                            x: [0, 50, -30, 0], 
+                                        animate={{
+                                            x: [0, 50, -30, 0],
                                             y: [0, -25, 25, 0],
-                                            opacity: [0.5, 1, 0.5] 
+                                            opacity: [0.5, 1, 0.5]
                                         }}
                                         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: i * 2 }}
                                     />
@@ -688,10 +688,10 @@ export default function PartnershipSection() {
                                             background: `radial-gradient(ellipse, ${tier.color}33 0%, ${tier.color}18 45%, transparent 75%)`,
                                             filter: 'blur(18px)',
                                         }}
-                                        animate={{ 
-                                            x: [0, -40, 40, 0], 
+                                        animate={{
+                                            x: [0, -40, 40, 0],
                                             y: [0, 25, -25, 0],
-                                            opacity: [0.4, 0.9, 0.4] 
+                                            opacity: [0.4, 0.9, 0.4]
                                         }}
                                         transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: i * 1.5 }}
                                     />
@@ -706,10 +706,10 @@ export default function PartnershipSection() {
                                             background: `radial-gradient(ellipse, ${tier.color}28 0%, transparent 60%)`,
                                             filter: 'blur(25px)',
                                         }}
-                                        animate={{ 
-                                            x: [0, 30, -20, 0], 
+                                        animate={{
+                                            x: [0, 30, -20, 0],
                                             y: [0, -15, 15, 0],
-                                            opacity: [0.3, 0.7, 0.3] 
+                                            opacity: [0.3, 0.7, 0.3]
                                         }}
                                         transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: i * 3 }}
                                     />
@@ -785,14 +785,14 @@ export default function PartnershipSection() {
                                 </ul>
 
                                 <div className="relative z-10">
-                                <Button
-                                    variant={tier.highlight ? 'solid' : 'ghost'}
-                                    color={tier.color === '#FFD166' ? 'gold' : 'emerald'}
-                                    href="#apply"
-                                    className="w-full justify-center"
-                                >
-                                    {tier.cta}
-                                </Button>
+                                    <Button
+                                        variant={tier.highlight ? 'solid' : 'ghost'}
+                                        color={tier.color === '#FFD166' ? 'gold' : 'emerald'}
+                                        href="#apply"
+                                        className="w-full justify-center"
+                                    >
+                                        {tier.cta}
+                                    </Button>
                                 </div>
                             </motion.div>
                         ))}
@@ -884,130 +884,386 @@ export default function PartnershipSection() {
 
                 <SerpentDivider />
 
-                {/* Application Form */}
-                <section id="apply" className="py-16 max-w-2xl mx-auto">
-                    <motion.h2
-                        className="text-3xl text-center mb-12"
-                        style={{ fontFamily: 'var(--font-heading)', color: '#FFD166' }}
-                        variants={fadeUpVariant}
+                {/* Application Form — Ancient Scroll */}
+                <section id="apply" className="pt-12 pb-4 px-6 relative" style={{ zIndex: 10 }}>
+                    {/* ── Single unified nebula spanning both sections ── */}
+                    <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ overflow: 'visible' }}>
+                        {/* Central Gold Glow */}
+                        <div style={{ position: 'absolute', top: '70%', left: '50%', transform: 'translate(-50%, -50%)', width: '120vw', height: '120vh', maxWidth: 1500, maxHeight: 1500, background: 'radial-gradient(ellipse, rgba(255,180,100,0.12) 0%, rgba(255,220,120,0.04) 40%, transparent 70%)', filter: 'blur(130px)', zIndex: -1 }} />
+                        
+                        {/* Upper Right Green Nebula */}
+                        <div style={{ position: 'absolute', top: '0%', right: '0%', width: '80vw', height: '80vh', maxWidth: 1000, maxHeight: 1000, background: 'radial-gradient(ellipse, rgba(0,212,160,0.1) 0%, rgba(0,212,160,0.03) 45%, transparent 75%)', filter: 'blur(100px)', zIndex: -1 }} />
+                        
+                        {/* Lower Left Purple/Blue Nebula */}
+                        <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '90vw', height: '90vh', maxWidth: 1200, maxHeight: 1200, background: 'radial-gradient(ellipse, rgba(91,91,255,0.12) 0%, rgba(115,115,255,0.04) 50%, transparent 75%)', filter: 'blur(120px)', zIndex: -1 }} />
+                    </div>
+                    <style>{`
+                        .scroll-input:-webkit-autofill,
+                        .scroll-input:-webkit-autofill:hover,
+                        .scroll-input:-webkit-autofill:focus {
+                            -webkit-box-shadow: 0 0 0px 1000px #0d0900 inset !important;
+                            -webkit-text-fill-color: #FFFFFF !important;
+                            caret-color: #FFFFFF;
+                        }
+                        .scroll-select option {
+                            background: #0d0900;
+                            color: #FFFFFF;
+                        }
+                    `}</style>
+                    <motion.div
+                        className="relative mx-auto"
+                        style={{ maxWidth: 500 }}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, amount: 0.45 }}
                     >
-                        Apply for Partnership
-                    </motion.h2>
+                        {/* Outer gold halo */}
+                        <div style={{
+                            position: 'absolute', inset: '-2px', pointerEvents: 'none',
+                            boxShadow: '0 0 50px rgba(255,180,40,0.22), 0 0 100px rgba(255,160,20,0.1)',
+                            borderRadius: 6,
+                        }} />
 
-                    {submitted ? (
+                        {/* ── Ornamental SVG Border (same as GoldFrame) ── */}
+                        <svg
+                            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 30 }}
+                            preserveAspectRatio="none"
+                            viewBox="0 0 700 600"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <defs>
+                                <linearGradient id="scroll-frame-grad" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stopColor="#FFC040" stopOpacity="0.95" />
+                                    <stop offset="50%" stopColor="#FFA825" stopOpacity="0.65" />
+                                    <stop offset="100%" stopColor="#FFD166" stopOpacity="0.9" />
+                                </linearGradient>
+                            </defs>
+
+                            {/* top-left */}
+                            <g opacity="1">
+                                <path d="M 16 4 Q 4 4 4 16" stroke="url(#scroll-frame-grad)" strokeWidth="1.8" fill="none" />
+                                <path d="M 36 4 Q 4 4 4 36" stroke="rgba(255,192,64,0.55)" strokeWidth="1" fill="none" />
+                                <path d="M 50 4 Q 4 6 4 50" stroke="rgba(255,168,37,0.3)" strokeWidth="0.6" fill="none" />
+                                <circle cx="4" cy="4" r="2.5" fill="rgba(255,210,80,0.85)" />
+                                <path d="M 24 4 C 24 14, 16 20, 4 20" stroke="rgba(255,192,64,0.5)" strokeWidth="0.8" fill="none" />
+                                <path d="M 4 28 C 14 28, 20 20, 20 4" stroke="rgba(255,180,40,0.4)" strokeWidth="0.7" fill="none" />
+                                <path d="M 30 4 C 28 8, 24 12, 16 14 C 22 10, 26 6, 30 4" stroke="rgba(255,168,37,0.35)" strokeWidth="0.5" fill="rgba(255,192,64,0.08)" />
+                                <path d="M 4 34 C 8 30, 12 26, 18 20 C 12 24, 8 28, 4 34" stroke="rgba(255,160,20,0.3)" strokeWidth="0.5" fill="rgba(255,180,40,0.06)" />
+                                <circle cx="24" cy="4" r="1.2" fill="rgba(255,210,80,0.75)" />
+                                <circle cx="4" cy="24" r="1.2" fill="rgba(255,210,80,0.75)" />
+                                <circle cx="16" cy="14" r="0.8" fill="rgba(255,192,64,0.55)" />
+                            </g>
+                            {/* top-right */}
+                            <g opacity="1" transform="translate(700,0) scale(-1,1)">
+                                <path d="M 16 4 Q 4 4 4 16" stroke="url(#scroll-frame-grad)" strokeWidth="1.8" fill="none" />
+                                <path d="M 36 4 Q 4 4 4 36" stroke="rgba(255,192,64,0.55)" strokeWidth="1" fill="none" />
+                                <path d="M 50 4 Q 4 6 4 50" stroke="rgba(255,168,37,0.3)" strokeWidth="0.6" fill="none" />
+                                <circle cx="4" cy="4" r="2.5" fill="rgba(255,210,80,0.85)" />
+                                <path d="M 24 4 C 24 14, 16 20, 4 20" stroke="rgba(255,192,64,0.5)" strokeWidth="0.8" fill="none" />
+                                <path d="M 4 28 C 14 28, 20 20, 20 4" stroke="rgba(255,180,40,0.4)" strokeWidth="0.7" fill="none" />
+                                <path d="M 30 4 C 28 8, 24 12, 16 14 C 22 10, 26 6, 30 4" stroke="rgba(255,168,37,0.35)" strokeWidth="0.5" fill="rgba(255,192,64,0.08)" />
+                                <circle cx="24" cy="4" r="1.2" fill="rgba(255,210,80,0.75)" />
+                                <circle cx="16" cy="14" r="0.8" fill="rgba(255,192,64,0.55)" />
+                            </g>
+                            {/* bottom-left */}
+                            <g opacity="1" transform="translate(0,600) scale(1,-1)">
+                                <path d="M 16 4 Q 4 4 4 16" stroke="url(#scroll-frame-grad)" strokeWidth="1.8" fill="none" />
+                                <path d="M 36 4 Q 4 4 4 36" stroke="rgba(255,192,64,0.55)" strokeWidth="1" fill="none" />
+                                <path d="M 50 4 Q 4 6 4 50" stroke="rgba(255,168,37,0.3)" strokeWidth="0.6" fill="none" />
+                                <circle cx="4" cy="4" r="2.5" fill="rgba(255,210,80,0.85)" />
+                                <path d="M 24 4 C 24 14, 16 20, 4 20" stroke="rgba(255,192,64,0.5)" strokeWidth="0.8" fill="none" />
+                                <path d="M 30 4 C 28 8, 24 12, 16 14 C 22 10, 26 6, 30 4" stroke="rgba(255,168,37,0.35)" strokeWidth="0.5" fill="rgba(255,192,64,0.08)" />
+                                <circle cx="4" cy="24" r="1.2" fill="rgba(255,210,80,0.75)" />
+                            </g>
+                            {/* bottom-right */}
+                            <g opacity="1" transform="translate(700,600) scale(-1,-1)">
+                                <path d="M 16 4 Q 4 4 4 16" stroke="url(#scroll-frame-grad)" strokeWidth="1.8" fill="none" />
+                                <path d="M 36 4 Q 4 4 4 36" stroke="rgba(255,192,64,0.55)" strokeWidth="1" fill="none" />
+                                <path d="M 50 4 Q 4 6 4 50" stroke="rgba(255,168,37,0.3)" strokeWidth="0.6" fill="none" />
+                                <circle cx="4" cy="4" r="2.5" fill="rgba(255,210,80,0.85)" />
+                                <path d="M 24 4 C 24 14, 16 20, 4 20" stroke="rgba(255,192,64,0.5)" strokeWidth="0.8" fill="none" />
+                                <path d="M 30 4 C 28 8, 24 12, 16 14 C 22 10, 26 6, 30 4" stroke="rgba(255,168,37,0.35)" strokeWidth="0.5" fill="rgba(255,192,64,0.08)" />
+                                <circle cx="24" cy="4" r="1.2" fill="rgba(255,210,80,0.75)" />
+                            </g>
+
+                            {/* top centre diamond */}
+                            <g opacity="0.9">
+                                <line x1="60" y1="1" x2="310" y2="1" stroke="rgba(255,192,64,0.35)" strokeWidth="0.6" />
+                                <line x1="390" y1="1" x2="640" y2="1" stroke="rgba(255,192,64,0.35)" strokeWidth="0.6" />
+                                <path d="M 320 1 L 350 14 L 380 1" stroke="rgba(255,210,80,0.7)" strokeWidth="0.8" fill="none" />
+                                <path d="M 335 1 L 350 8  L 365 1" stroke="rgba(255,192,64,0.5)" strokeWidth="0.5" fill="rgba(255,192,64,0.08)" />
+                                <circle cx="350" cy="14" r="1.5" fill="rgba(255,210,80,0.8)" />
+                                <circle cx="320" cy="1" r="0.8" fill="rgba(255,192,64,0.6)" />
+                                <circle cx="380" cy="1" r="0.8" fill="rgba(255,192,64,0.6)" />
+                            </g>
+                            {/* bottom centre diamond */}
+                            <g opacity="0.85">
+                                <line x1="60" y1="599" x2="310" y2="599" stroke="rgba(255,192,64,0.3)" strokeWidth="0.6" />
+                                <line x1="390" y1="599" x2="640" y2="599" stroke="rgba(255,192,64,0.3)" strokeWidth="0.6" />
+                                <path d="M 320 599 L 350 586 L 380 599" stroke="rgba(255,210,80,0.55)" strokeWidth="0.8" fill="none" />
+                                <path d="M 335 599 L 350 592 L 365 599" stroke="rgba(255,192,64,0.4)" strokeWidth="0.5" fill="rgba(255,192,64,0.06)" />
+                                <circle cx="350" cy="586" r="1.5" fill="rgba(255,210,80,0.65)" />
+                            </g>
+
+                            {/* side lines */}
+                            <line x1="2" y1="55" x2="2" y2="545" stroke="#FFC040" strokeWidth="0.8" opacity="0.45" />
+                            <line x1="698" y1="55" x2="698" y2="545" stroke="#FFC040" strokeWidth="0.8" opacity="0.45" />
+                            {/* inner frame */}
+                            <rect x="10" y="10" width="680" height="580" rx="12" stroke="rgba(255,192,64,0.1)" strokeWidth="0.5" fill="none" />
+                        </svg>
+
+                        {/* ── Scroll unroll animation ── */}
                         <motion.div
-                            className="text-center p-12 rounded-2xl"
-                            style={{
-                                backgroundColor: 'rgba(13,13,26,0.6)',
-                                border: '1px solid rgba(0,212,160,0.3)',
+                            variants={{
+                                hidden: { scaleY: 0, opacity: 0 },
+                                visible: { scaleY: 1, opacity: 1 },
                             }}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                            style={{ transformOrigin: 'top center' }}
                         >
-                            <div className="w-16 h-16 rounded-full mx-auto mb-6" style={{ backgroundColor: 'rgba(0,212,160,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <span className="text-3xl">✓</span>
+                            {/* Top rod */}
+                            <div className="relative z-20" style={{
+                                height: 22,
+                                background: 'linear-gradient(to bottom, #5C420A, #A07020, #D4A030, #A07020, #5C420A)',
+                                borderRadius: '11px 11px 0 0',
+                                boxShadow: '0 3px 14px rgba(180,130,30,0.25), inset 0 1px 0 rgba(255,220,100,0.15)',
+                            }}>
+                                {[-1, 1].map((side) => (
+                                    <div key={side} style={{
+                                        position: 'absolute', top: '50%',
+                                        [side === -1 ? 'left' : 'right']: -8,
+                                        transform: 'translateY(-50%)',
+                                        width: 16, height: 16, borderRadius: '50%',
+                                        background: 'radial-gradient(circle at 35% 30%, #D4A030, #7A5010, #3A2505)',
+                                        boxShadow: '0 2px 6px rgba(0,0,0,0.7)',
+                                    }} />
+                                ))}
+                                <div style={{
+                                    position: 'absolute', inset: '38% 20px',
+                                    background: 'linear-gradient(90deg, transparent, rgba(255,210,80,0.2), transparent)',
+                                    borderRadius: 2,
+                                }} />
                             </div>
-                            <h3 className="text-2xl mb-4" style={{ fontFamily: 'var(--font-heading)', color: '#00D4A0' }}>
-                                Application Received
-                            </h3>
-                            <p style={{ fontFamily: 'var(--font-body)', color: '#A09A8E' }}>
-                                Thank you for your interest in partnering with Dalan. Our team will review your application and reach out within 5 business days.
-                            </p>
-                        </motion.div>
-                    ) : (
-                        <motion.form
-                            onSubmit={handleSubmit}
-                            className="space-y-6"
-                            variants={staggerContainer}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                        >
-                            {[
-                                { label: 'Organization Name', key: 'orgName', type: 'text' },
-                                { label: 'Contact Person', key: 'contact', type: 'text' },
-                                { label: 'Email Address', key: 'email', type: 'email' },
-                            ].map((field) => (
-                                <motion.div key={field.key} variants={fadeUpVariant}>
-                                    <label
-                                        className="block text-sm mb-2"
-                                        style={{ fontFamily: 'var(--font-ui)', color: '#A09A8E' }}
-                                    >
-                                        {field.label}
-                                    </label>
-                                    <input
-                                        type={field.type}
-                                        required
-                                        value={form[field.key as keyof typeof form]}
-                                        onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl text-base outline-none transition-all duration-300"
-                                        style={{
-                                            backgroundColor: 'rgba(18,18,42,0.6)',
-                                            border: '1px solid rgba(91,91,255,0.2)',
-                                            color: '#F0EDE8',
-                                            fontFamily: 'var(--font-body)',
-                                        }}
-                                        onFocus={(e) => { (e.target as HTMLElement).style.borderColor = 'rgba(0,212,160,0.5)'; }}
-                                        onBlur={(e) => { (e.target as HTMLElement).style.borderColor = 'rgba(91,91,255,0.2)'; }}
-                                    />
-                                </motion.div>
-                            ))}
 
-                            <motion.div variants={fadeUpVariant}>
-                                <label className="block text-sm mb-2" style={{ fontFamily: 'var(--font-ui)', color: '#A09A8E' }}>
-                                    Partnership Type
-                                </label>
-                                <select
-                                    required
-                                    value={form.type}
-                                    onChange={(e) => setForm({ ...form, type: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-xl text-base outline-none"
-                                    style={{
-                                        backgroundColor: 'rgba(18,18,42,0.6)',
-                                        border: '1px solid rgba(91,91,255,0.2)',
-                                        color: '#F0EDE8',
-                                        fontFamily: 'var(--font-body)',
-                                    }}
+                            {/* Scroll body */}
+                            <div style={{
+                                backgroundColor: 'rgba(8,8,20,0.7)', backdropFilter: 'blur(12px)',
+                                border: '1px solid rgba(160,110,25,0.3)',
+                                borderTop: 'none', borderBottom: 'none',
+                                boxShadow: 'inset 6px 0 24px rgba(0,0,0,0.8), inset -6px 0 24px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.5)',
+                                position: 'relative',
+                                overflow: 'hidden',
+                            }}>
+                                {/* Aged horizontal line texture */}
+                                <div style={{
+                                    position: 'absolute', inset: 0, pointerEvents: 'none',
+                                    background: 'repeating-linear-gradient(0deg, transparent, transparent 22px, rgba(160,110,25,0.04) 22px, rgba(160,110,25,0.04) 23px)',
+                                }} />
+                                {/* Edge shadow vignette */}
+                                <div style={{
+                                    position: 'absolute', inset: 0, pointerEvents: 'none',
+                                    background: 'linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.5) 100%)',
+                                }} />
+                                {/* Top/bottom fade */}
+                                <div style={{
+                                    position: 'absolute', inset: 0, pointerEvents: 'none',
+                                    background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 10%, transparent 90%, rgba(0,0,0,0.3) 100%)',
+                                }} />
+                                {/* Worn spots */}
+                                <div style={{
+                                    position: 'absolute', top: '15%', left: '8%', width: 60, height: 60, borderRadius: '50%', pointerEvents: 'none',
+                                    background: 'radial-gradient(circle, rgba(100,70,10,0.08) 0%, transparent 70%)',
+                                }} />
+                                <div style={{
+                                    position: 'absolute', bottom: '20%', right: '10%', width: 80, height: 80, borderRadius: '50%', pointerEvents: 'none',
+                                    background: 'radial-gradient(circle, rgba(80,55,8,0.07) 0%, transparent 70%)',
+                                }} />
+                                {/* Corner ornaments */}
+                                {[['top', 'left'], ['top', 'right'], ['bottom', 'left'], ['bottom', 'right']].map(([v, h]) => (
+                                    <div key={`${v}${h}`} style={{
+                                        position: 'absolute',
+                                        [v]: 10, [h]: 10,
+                                        width: 20, height: 20,
+                                        borderTop: v === 'top' ? '1px solid rgba(180,130,30,0.45)' : 'none',
+                                        borderBottom: v === 'bottom' ? '1px solid rgba(180,130,30,0.45)' : 'none',
+                                        borderLeft: h === 'left' ? '1px solid rgba(180,130,30,0.45)' : 'none',
+                                        borderRight: h === 'right' ? '1px solid rgba(180,130,30,0.45)' : 'none',
+                                    }} />
+                                ))}
+
+                                {/* Content fades in after scroll opens */}
+                                <motion.div
+                                    className="px-8 pt-7 pb-6"
+                                    variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                                    transition={{ duration: 0.6, delay: 0.75 }}
                                 >
-                                    <option value="">Select a tier...</option>
-                                    <option value="crescent">Crescent — Affiliate Partner</option>
-                                    <option value="half">Half Moon — Institutional Partner</option>
-                                    <option value="full">Full Moon — Strategic Partner</option>
-                                </select>
-                            </motion.div>
+                                    {/* Title */}
+                                    <div className="text-center mb-6">
+                                        <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(180,130,30,0.45), transparent)', marginBottom: 12 }} />
+                                        <p style={{ fontFamily: 'var(--font-ui)', color: '#FFFFFF', fontSize: '0.6rem', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 6 }}>
+                                            ✦ Sacred Covenant ✦
+                                        </p>
+                                        <h2 style={{ fontFamily: 'var(--font-heading)', color: '#FFFFFF', fontSize: '1.35rem', letterSpacing: '0.1em' }}>
+                                            Apply for Partnership
+                                        </h2>
+                                        <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(180,130,30,0.45), transparent)', marginTop: 12 }} />
+                                    </div>
 
-                            <motion.div variants={fadeUpVariant}>
-                                <label className="block text-sm mb-2" style={{ fontFamily: 'var(--font-ui)', color: '#A09A8E' }}>
-                                    Description of Interest
-                                </label>
-                                <textarea
-                                    required
-                                    rows={4}
-                                    value={form.description}
-                                    onChange={(e) => setForm({ ...form, description: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-xl text-base outline-none resize-none"
-                                    style={{
-                                        backgroundColor: 'rgba(18,18,42,0.6)',
-                                        border: '1px solid rgba(91,91,255,0.2)',
-                                        color: '#F0EDE8',
-                                        fontFamily: 'var(--font-body)',
-                                    }}
-                                    onFocus={(e) => { (e.target as HTMLElement).style.borderColor = 'rgba(0,212,160,0.5)'; }}
-                                    onBlur={(e) => { (e.target as HTMLElement).style.borderColor = 'rgba(91,91,255,0.2)'; }}
-                                />
-                            </motion.div>
+                                    {submitted ? (
+                                        <motion.div className="text-center py-8"
+                                            initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+                                            <div style={{ width: 44, height: 44, borderRadius: '50%', backgroundColor: 'rgba(0,180,130,0.1)', border: '1px solid rgba(0,180,130,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+                                                <span style={{ color: '#00B480', fontSize: '1.2rem' }}>✓</span>
+                                            </div>
+                                            <h3 style={{ fontFamily: 'var(--font-heading)', color: '#00B480', fontSize: '1rem', marginBottom: 6 }}>
+                                                Application Received
+                                            </h3>
+                                            <p style={{ fontFamily: 'var(--font-body)', color: '#7A6A4A', fontSize: '0.8rem' }}>
+                                                Thank you. Our team will reach out within 5 business days.
+                                            </p>
+                                        </motion.div>
+                                    ) : (
+                                        <form onSubmit={handleSubmit} className="space-y-4">
+                                            {[
+                                                { label: 'Organization Name', key: 'orgName', type: 'text' },
+                                                { label: 'Contact Person', key: 'contact', type: 'text' },
+                                                { label: 'Email Address', key: 'email', type: 'email' },
+                                            ].map((field) => (
+                                                <div key={field.key}>
+                                                    <label style={{ display: 'block', fontFamily: 'var(--font-ui)', color: '#FFFFFF', fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>
+                                                        {field.label}
+                                                    </label>
+                                                    <input
+                                                        className="scroll-input"
+                                                        type={field.type}
+                                                        required
+                                                        value={form[field.key as keyof typeof form]}
+                                                        onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
+                                                        style={{
+                                                            width: '100%', padding: '8px 12px', borderRadius: 4,
+                                                            background: '#0d0900',
+                                                            border: '1px solid rgba(120,80,15,0.4)',
+                                                            color: '#FFFFFF', fontFamily: 'var(--font-body)', fontSize: '0.82rem',
+                                                            outline: 'none', transition: 'border-color 0.3s',
+                                                            boxSizing: 'border-box',
+                                                        }}
+                                                        onFocus={(e) => { e.target.style.borderColor = 'rgba(196,150,42,0.7)'; }}
+                                                        onBlur={(e) => { e.target.style.borderColor = 'rgba(120,80,15,0.4)'; }}
+                                                    />
+                                                </div>
+                                            ))}
 
-                            <motion.div variants={fadeUpVariant} className="pt-4">
-                                <Button variant="solid" color="emerald" type="submit">
-                                    Submit Application
-                                </Button>
-                            </motion.div>
-                        </motion.form>
-                    )}
+                                            <div>
+                                                <label style={{ display: 'block', fontFamily: 'var(--font-ui)', color: '#FFFFFF', fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>
+                                                    Partnership Type
+                                                </label>
+                                                <select
+                                                    className="scroll-select"
+                                                    required
+                                                    value={form.type}
+                                                    onChange={(e) => setForm({ ...form, type: e.target.value })}
+                                                    style={{
+                                                        width: '100%', padding: '8px 12px', borderRadius: 4,
+                                                        background: '#0d0900',
+                                                        border: '1px solid rgba(120,80,15,0.4)',
+                                                        color: '#FFFFFF', fontFamily: 'var(--font-body)', fontSize: '0.82rem',
+                                                        outline: 'none', boxSizing: 'border-box',
+                                                        appearance: 'none' as const,
+                                                    }}
+                                                >
+                                                    <option value="">— select a tier —</option>
+                                                    <option value="crescent">Crescent — Affiliate Partner</option>
+                                                    <option value="half">Half Moon — Institutional Partner</option>
+                                                    <option value="full">Full Moon — Strategic Partner</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label style={{ display: 'block', fontFamily: 'var(--font-ui)', color: '#FFFFFF', fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 4 }}>
+                                                    Description of Interest
+                                                </label>
+                                                <textarea
+                                                    className="scroll-input"
+                                                    required
+                                                    rows={3}
+                                                    value={form.description}
+                                                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                                                    style={{
+                                                        width: '100%', padding: '8px 12px', borderRadius: 4,
+                                                        background: '#0d0900',
+                                                        border: '1px solid rgba(120,80,15,0.4)',
+                                                        color: '#FFFFFF', fontFamily: 'var(--font-body)', fontSize: '0.82rem',
+                                                        outline: 'none', resize: 'none', boxSizing: 'border-box',
+                                                        transition: 'border-color 0.3s',
+                                                    }}
+                                                    onFocus={(e) => { e.target.style.borderColor = 'rgba(196,150,42,0.7)'; }}
+                                                    onBlur={(e) => { e.target.style.borderColor = 'rgba(120,80,15,0.4)'; }}
+                                                />
+                                            </div>
+
+                                            <div className="pt-1 flex justify-center">
+                                                <button type="submit" style={{
+                                                    fontFamily: 'var(--font-ui)', fontSize: '0.7rem', letterSpacing: '0.18em',
+                                                    textTransform: 'uppercase', color: '#FFFFFF',
+                                                    border: '1px solid rgba(160,110,25,0.5)',
+                                                    background: 'rgba(30,18,2,0.8)', padding: '8px 28px', borderRadius: 3,
+                                                    cursor: 'pointer', transition: 'all 0.3s',
+                                                }}
+                                                    onMouseEnter={(e) => {
+                                                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(196,150,42,0.8)';
+                                                        (e.currentTarget as HTMLButtonElement).style.color = '#FFD166';
+                                                        (e.currentTarget as HTMLButtonElement).style.background = 'rgba(60,35,4,0.9)';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(160,110,25,0.5)';
+                                                        (e.currentTarget as HTMLButtonElement).style.color = '#FFFFFF';
+                                                        (e.currentTarget as HTMLButtonElement).style.background = 'rgba(30,18,2,0.8)';
+                                                    }}>
+                                                    Submit Application
+                                                </button>
+                                            </div>
+                                        </form>
+                                    )}
+                                </motion.div>
+                            </div>
+
+                            {/* Bottom rod */}
+                            <div className="relative z-20" style={{
+                                height: 22,
+                                background: 'linear-gradient(to bottom, #5C420A, #A07020, #D4A030, #A07020, #5C420A)',
+                                borderRadius: '0 0 11px 11px',
+                                boxShadow: '0 -3px 14px rgba(180,130,30,0.25), inset 0 -1px 0 rgba(255,210,80,0.1)',
+                            }}>
+                                {[-1, 1].map((side) => (
+                                    <div key={side} style={{
+                                        position: 'absolute', top: '50%',
+                                        [side === -1 ? 'left' : 'right']: -8,
+                                        transform: 'translateY(-50%)',
+                                        width: 16, height: 16, borderRadius: '50%',
+                                        background: 'radial-gradient(circle at 35% 30%, #D4A030, #7A5010, #3A2505)',
+                                        boxShadow: '0 2px 6px rgba(0,0,0,0.7)',
+                                    }} />
+                                ))}
+                                <div style={{
+                                    position: 'absolute', inset: '38% 20px',
+                                    background: 'linear-gradient(90deg, transparent, rgba(255,210,80,0.15), transparent)',
+                                    borderRadius: 2,
+                                }} />
+                            </div>
+                        </motion.div>
+
+                        {/* Scroll glow halo */}
+                        <div style={{
+                            position: 'absolute', inset: '-20px',
+                            background: 'radial-gradient(ellipse at 50% 50%, rgba(255,209,102,0.06) 0%, transparent 70%)',
+                            pointerEvents: 'none', zIndex: -1,
+                        }} />
+                    </motion.div>
                 </section>
+                <div className="pb-8 pt-4">
+                    <SerpentDivider />
+                </div>
             </section>
         </div>
     );

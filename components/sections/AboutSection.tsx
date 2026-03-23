@@ -1,8 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform, useMotionTemplate, type MotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionTemplate, useInView, type MotionValue } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import Card from '@/components/ui/Card';
 import GoldFrame from '@/components/ui/GoldFrame';
 import SerpentDivider from '@/components/ui/SerpentDivider';
 import { fadeUpVariant, staggerContainer } from '@/lib/motion-variants';
@@ -82,8 +81,56 @@ const mistStyles = `
   100% { transform: rotate(0deg) scale(1.1); }
 }
 @keyframes pulseGlow {
-  0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 212, 160, 0.15)) brightness(1); }
-  50% { filter: drop-shadow(0 0 30px rgba(0, 212, 160, 0.4)) brightness(1.05); }
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 212, 160, 0.1)) drop-shadow(0 0 20px rgba(255,209,102,0.08)) brightness(1); }
+  50% { filter: drop-shadow(0 0 16px rgba(0, 212, 160, 0.18)) drop-shadow(0 0 30px rgba(255,209,102,0.14)) brightness(1.04); }
+}
+@keyframes nebulaDrift1 {
+  0%, 100% { transform: translate(-20px, -10px) rotate(0deg); }
+  50% { transform: translate(20px, 10px) rotate(5deg); }
+}
+@keyframes nebulaDrift2 {
+  0%, 100% { transform: translate(30px, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(-30px, 0) rotate(-8deg) scale(1.1); }
+}
+@keyframes nebulaDrift3 {
+  0%, 100% { opacity: 0.1; transform: scale(0.95); }
+  50% { opacity: 0.18; transform: scale(1.05); }
+}
+@keyframes nebulaDrift4 {
+  0%, 100% { transform: translate(-40px, 20px) rotate(0deg); }
+  50% { transform: translate(40px, -20px) rotate(12deg); }
+}
+@keyframes nebulaDrift5 {
+  0%, 100% { transform: skewX(0deg) scale(1); }
+  50% { transform: skewX(5deg) scale(1.2); }
+}
+@keyframes nebulaBreath {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.07; }
+}
+@keyframes sideNebulaLeft {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(15deg) scale(1.1); }
+}
+@keyframes sideNebulaRight {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-15deg) scale(1.05); }
+}
+@keyframes phaseCNebulaLeft {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(12deg) scale(1.1); }
+}
+@keyframes phaseCNebulaRight {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-12deg) scale(1.08); }
+}
+@keyframes phaseCBloom {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+}
+@keyframes sealPulse {
+  0%, 100% { r: var(--base-r); opacity: var(--min-opacity); }
+  50% { r: calc(var(--base-r) * 1.03); opacity: var(--max-opacity); }
 }
 `;
 
@@ -98,83 +145,63 @@ function NebulaEffect() {
             <div className="absolute inset-0 bg-radial-[circle_at_50%_50%] from-transparent via-void/40 to-void" />
 
             {/* Carina-style Deep Blue/Purple Cloud */}
-            <motion.div
+            <div
                 className="absolute w-[150vw] h-[120vh] -top-[20%] -left-[20%] opacity-[0.22] blur-[120px]"
                 style={{
                     background: 'radial-gradient(ellipse at 30% 40%, #0A0A2E 0%, #1A1A6E 25%, #2D2DB8 50%, transparent 80%)',
+                    animation: 'nebulaDrift1 50s ease-in-out infinite',
+                    willChange: 'transform',
                 }}
-                animate={{
-                    x: [-20, 20, -20],
-                    y: [-10, 10, -10],
-                    rotate: [0, 5, 0],
-                }}
-                transition={{ duration: 50, repeat: Infinity, ease: 'easeInOut' }}
             />
-            
+
             {/* Vibrant Emerald Ionized Gas */}
-            <motion.div
+            <div
                 className="absolute w-[110vw] h-[100vh] top-[10%] left-[15%] opacity-[0.18] blur-[90px]"
                 style={{
                     background: 'radial-gradient(ellipse at 60% 50%, #00D4A0 0%, #007A5C 30%, #0A0A2E 60%, transparent 85%)',
+                    animation: 'nebulaDrift2 65s ease-in-out 2s infinite',
+                    willChange: 'transform',
                 }}
-                animate={{
-                    x: [30, -30, 30],
-                    rotate: [0, -8, 0],
-                    scale: [1, 1.1, 1],
-                }}
-                transition={{ duration: 65, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
             />
-            
+
             {/* Stellar Nursery - Rose/Magenta High Energy */}
-            <motion.div
-                className="absolute w-[90vw] h-[80vh] top-[5%] right-[0%] opacity-[0.15] blur-[70px]"
+            <div
+                className="absolute w-[90vw] h-[80vh] top-[5%] right-[0%] blur-[70px]"
                 style={{
                     background: 'radial-gradient(circle at 40% 40%, #FF6B9D 0%, #C8B8FF 25%, #1A1A6E 55%, transparent 80%)',
+                    animation: 'nebulaDrift3 35s ease-in-out infinite',
+                    willChange: 'transform, opacity',
                 }}
-                animate={{
-                    opacity: [0.1, 0.18, 0.1],
-                    scale: [0.95, 1.05, 0.95],
-                }}
-                transition={{ duration: 35, repeat: Infinity, ease: 'easeInOut' }}
             />
 
             {/* Hydrogen Alpha - Warm Coral/Gold Glow */}
-            <motion.div
+            <div
                 className="absolute w-[100vw] h-[110vh] bottom-[-10%] right-[-10%] opacity-[0.15] blur-[130px]"
                 style={{
                     background: 'radial-gradient(ellipse at 40% 70%, #FF8C6B 0%, #FFD166 20%, #B8922A 45%, transparent 75%)',
+                    animation: 'nebulaDrift4 80s ease-in-out 5s infinite',
+                    willChange: 'transform',
                 }}
-                animate={{
-                    x: [-40, 40, -40],
-                    y: [20, -20, 20],
-                    rotate: [0, 12, 0],
-                }}
-                transition={{ duration: 80, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
             />
 
             {/* Filamentary Dust Structures - Cyan/Sky */}
-            <motion.div
+            <div
                 className="absolute w-[80vw] h-[70vh] bottom-[15%] left-[-5%] opacity-[0.1] blur-[60px]"
                 style={{
                     background: 'radial-gradient(ellipse at center, #7FDBFF 0%, #5B5BFF 40%, transparent 70%)',
+                    animation: 'nebulaDrift5 45s linear infinite',
+                    willChange: 'transform',
                 }}
-                animate={{
-                    skewX: [0, 5, 0],
-                    scale: [1, 1.2, 1],
-                }}
-                transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
             />
-            
+
             {/* Ambient Background Shimmer */}
-            <motion.div
-                className="absolute inset-0 opacity-[0.05]"
+            <div
+                className="absolute inset-0"
                 style={{
                     background: 'radial-gradient(circle at 50% 50%, #1A1A6E 0%, transparent 80%)',
+                    animation: 'nebulaBreath 20s ease-in-out infinite',
+                    willChange: 'opacity',
                 }}
-                animate={{
-                    opacity: [0.03, 0.07, 0.03],
-                }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
             />
         </div>
     );
@@ -196,66 +223,53 @@ function ArcaneSeal({ cx, cy, radius, color, index, filterBloom, filterGlow }: {
 
     return (
         <g transform={`translate(${cx}, ${cy})`}>
-            {/* Subtle Moon Rings — added as background layers */}
-            <g opacity="0.3">
-                <motion.circle
+            {/* Subtle Moon Rings — toned down (CSS animated for perf) */}
+            <g opacity="0.18">
+                <circle
                     cx="0" cy="0" r={rOut * 1.2}
-                    fill="none" stroke={color} strokeWidth={radius * 0.02}
-                    opacity="0.15" strokeDasharray="4 8"
-                    animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.2, 0.1] }}
-                    transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-                    filter={filterBloom}
-                />
-                <motion.circle
-                    cx="0" cy="0" r={rOut * 1.4}
                     fill="none" stroke={color} strokeWidth={radius * 0.015}
-                    opacity="0.1" strokeDasharray="1 12"
-                    animate={{ scale: [1, 1.08, 1], opacity: [0.05, 0.15, 0.05] }}
-                    transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-                    filter={filterBloom}
+                    strokeDasharray="4 8"
+                    style={{ animation: 'nebulaPulse 10s ease-in-out infinite', opacity: 0.08, willChange: 'transform, opacity' }}
                 />
-                <motion.circle
-                    cx="0" cy="0" r={rOut * 1.6}
+                <circle
+                    cx="0" cy="0" r={rOut * 1.4}
                     fill="none" stroke={color} strokeWidth={radius * 0.01}
-                    opacity="0.05"
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.02, 0.1, 0.02] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-                    filter={filterBloom}
+                    strokeDasharray="1 12"
+                    style={{ animation: 'nebulaPulse 15s ease-in-out 2s infinite', opacity: 0.05, willChange: 'transform, opacity' }}
                 />
             </g>
 
             {/* Primary rotating arcane seal */}
-            <g style={{ animation: `circleSpin ${25 + index * 2}s linear infinite ${index % 2 === 0 ? 'reverse' : 'normal'}` }}>
+            <g style={{ animation: `circleSpin ${25 + index * 2}s linear infinite ${index % 2 === 0 ? 'reverse' : 'normal'}`, willChange: 'transform' }}>
                 {/* Inner Pentagram */}
-                <path d={starPath} fill="none" stroke={color} strokeWidth={radius * 0.05} opacity="0.6" filter={filterBloom} />
-                
+                <path d={starPath} fill="none" stroke={color} strokeWidth={radius * 0.04} opacity="0.22" filter={filterBloom} />
+
                 {/* Inner Ring Boundary */}
-                <circle cx="0" cy="0" r={rIn} fill="none" stroke={color} strokeWidth={radius * 0.06} opacity="0.7" filter={filterBloom} />
-                
+                <circle cx="0" cy="0" r={rIn} fill="none" stroke={color} strokeWidth={radius * 0.04} opacity="0.25" filter={filterBloom} />
+
                 {/* Outer Ring Boundary */}
-                <circle cx="0" cy="0" r={rOut} fill="none" stroke={color} strokeWidth={radius * 0.08} opacity="0.7" filter={filterBloom} />
-                
-                {/* Rune Track (Using complex dash array to simulate runes/text) */}
-                <circle cx="0" cy="0" r={(rIn + rOut) / 2} fill="none" stroke={color} strokeWidth={radius * 0.22} strokeDasharray={`${radius*0.1} ${radius*0.25} ${radius*0.35} ${radius*0.2} ${radius*0.08} ${radius*0.15}`} opacity="0.5" filter={filterBloom} />
-                
+                <circle cx="0" cy="0" r={rOut} fill="none" stroke={color} strokeWidth={radius * 0.05} opacity="0.25" filter={filterBloom} />
+
+                {/* Rune Track */}
+                <circle cx="0" cy="0" r={(rIn + rOut) / 2} fill="none" stroke={color} strokeWidth={radius * 0.14} strokeDasharray={`${radius*0.1} ${radius*0.25} ${radius*0.35} ${radius*0.2} ${radius*0.08} ${radius*0.15}`} opacity="0.18" />
+
                 {/* Connecting rune spokes */}
                 {[...Array(12)].map((_, i) => (
-                    <line 
+                    <line
                         key={i}
-                        x1="0" y1={-rIn} x2="0" y2={-rOut} 
-                        stroke={color} strokeWidth={radius * 0.06} opacity="0.6"
+                        x1="0" y1={-rIn} x2="0" y2={-rOut}
+                        stroke={color} strokeWidth={radius * 0.04} opacity="0.22"
                         transform={`rotate(${i * 30})`}
-                        filter={filterBloom}
                     />
                 ))}
-                
+
                 {/* Orbiting Magical Satellite */}
-                <circle cx="0" cy={-rOut} r={Math.max(2, radius * 0.1)} fill="#FFF" filter={filterGlow} opacity="0.8" />
+                <circle cx="0" cy={-rOut} r={Math.max(1.5, radius * 0.08)} fill="#FFF" filter={filterGlow} opacity="0.45" />
             </g>
-            
+
             {/* Secondary inner counter-rotating geometric track */}
-            <g style={{ animation: `circleSpin ${30 + index * 3}s linear infinite ${index % 2 !== 0 ? 'reverse' : 'normal'}` }}>
-                <circle cx="0" cy="0" r={rIn * 0.75} fill="none" stroke="#FFD166" strokeWidth={radius * 0.04} opacity="0.5" strokeDasharray={`${radius*0.2} ${radius*0.2}`} filter={filterBloom} />
+            <g style={{ animation: `circleSpin ${30 + index * 3}s linear infinite ${index % 2 !== 0 ? 'reverse' : 'normal'}`, willChange: 'transform' }}>
+                <circle cx="0" cy="0" r={rIn * 0.75} fill="none" stroke="#FFD166" strokeWidth={radius * 0.03} opacity="0.18" strokeDasharray={`${radius*0.2} ${radius*0.2}`} />
             </g>
         </g>
     );
@@ -387,9 +401,9 @@ function ChapterOrigin() {
     const magicCircleOpacity = useTransform(scrollYProgress, [0, 0.08, 0.55, 0.60], [0, 1, 1, 0]);
 
     return (
-        <section ref={ref} className="relative" style={{ height: '300vh', backgroundColor: 'var(--color-void)' }}>
+        <section ref={ref} className="relative" style={{ height: '300vh', backgroundColor: 'var(--color-void)', contain: 'layout style' }}>
             <style>{mistStyles}</style>
-            <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
+            <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center" style={{ contain: 'paint' }}>
                 
                 {/* === SIDE NEBULA EFFECTS (HUGS EDGES) === */}
                 <motion.div 
@@ -397,53 +411,49 @@ function ChapterOrigin() {
                     style={{ opacity: magicCircleOpacity }}
                 >
                     {/* Left Side: Emerald/Imperial Blue Nebula */}
-                    <motion.div 
-                        className="absolute w-[80vw] h-[150vh] max-w-[800px] rounded-[100%] blur-[120px]" 
-                        style={{ 
+                    <div
+                        className="absolute w-[80vw] h-[150vh] max-w-[800px] rounded-[100%] blur-[120px]"
+                        style={{
                             left: '-30%',
                             top: '-20%',
-                            background: 'radial-gradient(ellipse at center, rgba(0,212,160,0.3) 0%, rgba(91,91,255,0.2) 40%, transparent 70%)', 
+                            background: 'radial-gradient(ellipse at center, rgba(0,212,160,0.3) 0%, rgba(91,91,255,0.2) 40%, transparent 70%)',
+                            animation: 'sideNebulaLeft 60s linear infinite',
+                            willChange: 'transform',
                         }}
-                        animate={{
-                            rotate: [0, 15, 0],
-                            scale: [1, 1.1, 1],
-                        }}
-                        transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
                     />
 
                     {/* Right Side: Coral/Warm Gold Nebula */}
-                    <motion.div 
-                        className="absolute w-[80vw] h-[150vh] max-w-[800px] rounded-[100%] blur-[120px]" 
-                        style={{ 
+                    <div
+                        className="absolute w-[80vw] h-[150vh] max-w-[800px] rounded-[100%] blur-[120px]"
+                        style={{
                             right: '-30%',
                             bottom: '-20%',
-                            background: 'radial-gradient(ellipse at center, rgba(255,140,107,0.25) 0%, rgba(255,209,102,0.15) 40%, transparent 70%)', 
+                            background: 'radial-gradient(ellipse at center, rgba(255,140,107,0.25) 0%, rgba(255,209,102,0.15) 40%, transparent 70%)',
+                            animation: 'sideNebulaRight 80s linear infinite',
+                            willChange: 'transform',
                         }}
-                        animate={{
-                            rotate: [0, -15, 0],
-                            scale: [1, 1.05, 1],
-                        }}
-                        transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
                     />
 
                     {/* Bottom Left Accent */}
-                    <div 
-                        className="absolute w-[50vw] h-[80vh] max-w-[500px] rounded-full blur-[80px] opacity-40" 
-                        style={{ 
+                    <div
+                        className="absolute w-[50vw] h-[80vh] max-w-[500px] rounded-full blur-[80px] opacity-40"
+                        style={{
                             left: '-15%',
                             bottom: '10%',
-                            background: 'radial-gradient(circle, rgba(91,91,255,0.2) 0%, transparent 60%)', 
-                        }} 
+                            background: 'radial-gradient(circle, rgba(91,91,255,0.2) 0%, transparent 60%)',
+                            willChange: 'transform',
+                        }}
                     />
 
                     {/* Top Right Accent */}
-                    <div 
-                        className="absolute w-[50vw] h-[80vh] max-w-[500px] rounded-full blur-[80px] opacity-40" 
-                        style={{ 
+                    <div
+                        className="absolute w-[50vw] h-[80vh] max-w-[500px] rounded-full blur-[80px] opacity-40"
+                        style={{
                             right: '-15%',
                             top: '10%',
-                            background: 'radial-gradient(circle, rgba(0,212,160,0.2) 0%, transparent 60%)', 
-                        }} 
+                            background: 'radial-gradient(circle, rgba(0,212,160,0.2) 0%, transparent 60%)',
+                            willChange: 'transform',
+                        }}
                     />
                 </motion.div>
 
@@ -453,26 +463,21 @@ function ChapterOrigin() {
                     style={{ opacity: magicCircleOpacity }}
                     aria-hidden="true"
                 >
-                    <svg viewBox="-50 -50 700 700" className="w-[85vmin] h-[85vmin] max-w-[85vw] max-h-[85vh] overflow-visible" style={{ animation: 'pulseGlow 8s ease-in-out infinite' }}>
+                    <svg viewBox="-50 -50 700 700" className="w-[85vmin] h-[85vmin] max-w-[85vw] max-h-[85vh] overflow-visible" style={{ animation: 'pulseGlow 8s ease-in-out infinite', willChange: 'filter' }}>
                         <defs>
                             {/* Softened Blooms & Glows */}
-                            <filter id="magicBloom" x="-40%" y="-40%" width="180%" height="180%">
-                                <feGaussianBlur stdDeviation="3" result="blur1" />
-                                <feGaussianBlur stdDeviation="8" result="blur2" />
-                                <feGaussianBlur stdDeviation="15" result="blur3" />
+                            <filter id="magicBloom" x="-30%" y="-30%" width="160%" height="160%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="bloom" />
                                 <feMerge>
-                                    <feMergeNode in="blur3" />
-                                    <feMergeNode in="blur2" />
+                                    <feMergeNode in="bloom" />
                                     <feMergeNode in="SourceGraphic" />
                                 </feMerge>
                             </filter>
 
-                            <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="3" result="blur1" />
-                                <feGaussianBlur stdDeviation="10" result="blur2" />
+                            <filter id="coreGlow" x="-40%" y="-40%" width="180%" height="180%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="glow" />
                                 <feMerge>
-                                    <feMergeNode in="blur2" />
-                                    <feMergeNode in="blur1" />
+                                    <feMergeNode in="glow" />
                                     <feMergeNode in="SourceGraphic" />
                                 </feMerge>
                             </filter>
@@ -481,9 +486,9 @@ function ChapterOrigin() {
                             {MOON_CONFIGS.map((moon) => (
                                 <g key={`moon-defs-${moon.id}`}>
                                     <radialGradient id={`moonGrad-${moon.id}`} cx="35%" cy="35%" r="70%">
-                                        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-                                        <stop offset="25%" stopColor={moon.color} stopOpacity="1" />
-                                        <stop offset="60%" stopColor={moon.color} stopOpacity="1" />
+                                        <stop offset="0%" stopColor="#C8C4C4" stopOpacity="1" />
+                                        <stop offset="25%" stopColor={moon.color} stopOpacity="0.55" />
+                                        <stop offset="60%" stopColor={moon.color} stopOpacity="0.38" />
                                         <stop offset="90%" stopColor="#08081a" stopOpacity="1" />
                                         <stop offset="100%" stopColor="#000" stopOpacity="1" />
                                     </radialGradient>                                    {/* Clip path for the crescent highlight overlay */}
@@ -495,77 +500,78 @@ function ChapterOrigin() {
 
                             <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stopColor="#FFD166" />
-                                <stop offset="25%" stopColor="#FFF4D4" />
-                                <stop offset="50%" stopColor="#B8922A" />
-                                <stop offset="75%" stopColor="#FFD166" />
-                                <stop offset="100%" stopColor="#8A6A1C" />
+                                <stop offset="20%" stopColor="#FFFAE6" />
+                                <stop offset="40%" stopColor="#FFD166" />
+                                <stop offset="60%" stopColor="#DFAA30" />
+                                <stop offset="80%" stopColor="#FFD166" />
+                                <stop offset="100%" stopColor="#FFFAE6" />
                             </linearGradient>
                         </defs>
 
                         {/* Outer rotating intricate rings */}
-                        <g style={{ transformOrigin: '300px 300px', animation: 'circleSpin 180s linear infinite' }}>
+                        <g style={{ transformOrigin: '300px 300px', animation: 'circleSpin 180s linear infinite', willChange: 'transform' }}>
                             {/* Glowing aura ring */}
-                            <circle cx="300" cy="300" r="305" fill="none" stroke="rgba(0, 212, 160, 0.1)" strokeWidth="10" filter="url(#magicBloom)" />
-                            
-                            <circle cx="300" cy="300" r="315" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.3" strokeDasharray="4 12" />
-                            <circle cx="300" cy="300" r="285" fill="none" stroke="#00D4A0" strokeWidth="1.5" strokeDasharray="2 6" opacity="0.5" filter="url(#magicBloom)"/>
+                            <circle cx="300" cy="300" r="305" fill="none" stroke="rgba(0, 212, 160, 0.07)" strokeWidth="10" filter="url(#magicBloom)" />
 
-                            {/* Triple main gold boundary */}
-                            <circle cx="300" cy="300" r="275" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.3" />
-                            <circle cx="300" cy="300" r="268" fill="none" stroke="url(#goldRing)" strokeWidth="3" opacity="0.7" filter="url(#magicBloom)"/>
-                            <circle cx="300" cy="300" r="261" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.3" />
+                            <circle cx="300" cy="300" r="315" fill="none" stroke="#5B5BFF" strokeWidth="0.8" opacity="0.18" strokeDasharray="4 12" />
+                            <circle cx="300" cy="300" r="285" fill="none" stroke="#00D4A0" strokeWidth="1.2" strokeDasharray="2 6" opacity="0.25" />
 
-                            {/* Runes / Tick Marks */}
+                            {/* Triple main gold boundary — vibrant */}
+                            <circle cx="300" cy="300" r="275" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.18" />
+                            <circle cx="300" cy="300" r="268" fill="none" stroke="url(#goldRing)" strokeWidth="2.5" opacity="0.45" filter="url(#magicBloom)" />
+                            <circle cx="300" cy="300" r="261" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.18" />
+
+                            {/* Runes / Tick Marks — boosted */}
                             {[...Array(72)].map((_, i) => (
                                 <g key={`rune-set-${i}`} transform={`rotate(${i * 5} 300 300)`}>
-                                    <line x1="300" y1="24" x2="300" y2="39" stroke={i % 2 === 0 ? "url(#goldRing)" : "#00D4A0"} strokeWidth={i % 2 === 0 ? "2" : "1"} opacity={i % 2 === 0 ? "0.7" : "0.4"} />
+                                    <line x1="300" y1="24" x2="300" y2="39" stroke={i % 2 === 0 ? "#FFD166" : "#00D4A0"} strokeWidth={i % 2 === 0 ? "1.5" : "0.8"} opacity={i % 2 === 0 ? "0.38" : "0.22"} />
                                     {i % 6 === 0 && (
-                                        <circle cx="300" cy="18" r="2.5" fill="#FFD166" filter="url(#magicBloom)" opacity="0.8" />
+                                        <circle cx="300" cy="18" r="2.5" fill="#FFD166" opacity="0.45" filter="url(#coreGlow)" />
                                     )}
                                 </g>
                             ))}
                         </g>
 
                         {/* Middle Geometry Layer (Heptagrams & Moons) */}
-                        <g style={{ transformOrigin: '300px 300px', animation: 'circleSpinReverse 220s linear infinite' }}>
+                        <g style={{ transformOrigin: '300px 300px', animation: 'circleSpinReverse 220s linear infinite', willChange: 'transform' }}>
                             {/* Background geometric scaffolding */}
-                            <circle cx="300" cy="300" r="215" fill="none" stroke="rgba(91,91,255,0.2)" strokeWidth="1" />
-                            
+                            <circle cx="300" cy="300" r="215" fill="none" stroke="rgba(91,91,255,0.08)" strokeWidth="1" />
+
                             {/* Dual Interlocking Heptagrams - Enhanced */}
-                            <g strokeWidth="1.5" fill="none" filter="url(#magicBloom)">
+                            <g strokeWidth="1" fill="none">
                                 {/* Sharp Heptagram */}
                                 {[...Array(7)].map((_, i) => (
-                                    <line 
+                                    <line
                                         key={`hept1-${i}`}
-                                        x1="300" y1="35" 
+                                        x1="300" y1="35"
                                         x2="505" y2="488"
-                                        stroke="#00D4A0" opacity="0.5"
+                                        stroke="#00D4A0" opacity="0.18"
                                         transform={`rotate(${i * (360 / 7)} 300 300)`}
                                     />
                                 ))}
                                 {/* Blunt Heptagram */}
                                 {[...Array(7)].map((_, i) => (
-                                    <path 
+                                    <path
                                         key={`hept2-${i}`}
                                         d="M 300 85 L 345 165 L 435 180 Line 300 300"
-                                        stroke="#5B5BFF" opacity="0.4" strokeWidth="2"
+                                        stroke="#5B5BFF" opacity="0.14" strokeWidth="1.5"
                                         transform={`rotate(${i * (360 / 7)} 300 300)`}
                                     />
                                 ))}
                             </g>
 
-                            {/* Solid Orbital Ring / Track for the Moons */}
-                            <circle cx="300" cy="300" r="248" fill="none" stroke="#00D4A0" strokeWidth="1.5" opacity="0.1" />
-                            <circle cx="300" cy="300" r="248" fill="none" stroke="url(#goldRing)" strokeWidth="3" opacity="0.15" filter="url(#magicBloom)" />
-                            
+                            {/* Solid Orbital Ring / Track for the Moons — vibrant */}
+                            <circle cx="300" cy="300" r="248" fill="none" stroke="#00D4A0" strokeWidth="1.2" opacity="0.12" />
+                            <circle cx="300" cy="300" r="248" fill="none" stroke="url(#goldRing)" strokeWidth="2.5" opacity="0.22" filter="url(#magicBloom)" />
+
                             {/* Inner Resonance Ring */}
-                            <circle cx="300" cy="300" r="185" fill="none" stroke="#00D4A0" strokeWidth="2" strokeDasharray="2 8" opacity="0.15" filter="url(#magicBloom)"/>
-                            
+                            <circle cx="300" cy="300" r="185" fill="none" stroke="#00D4A0" strokeWidth="1.5" strokeDasharray="2 8" opacity="0.07" />
+
                             {/* The Authentic 7 Folklore Moon Orbs */}
                             {MOON_CONFIGS.slice(0, 7).map((moon, i) => (
                                 <g key={`moon-group-${moon.id}`} transform={`rotate(${i * (360 / 7)} 300 300)`}>
-                                    {/* Underlying intense glow */}
-                                    <circle cx="300" cy="52" r="35" fill={moon.color} filter="url(#coreGlow)" opacity="0.9" />
+                                    {/* Underlying glow — reduced */}
+                                    <circle cx="300" cy="52" r="28" fill={moon.color} filter="url(#coreGlow)" opacity="0.35" />
 
                                     {/* THE NEW ARCANE PENTAGRAM SEAL OVER THE MOON (Behind the moon body) */}
                                     <ArcaneSeal cx={300} cy={52} radius={25} color={moon.color} index={i} filterBloom="url(#magicBloom)" filterGlow="url(#coreGlow)" />
@@ -593,32 +599,32 @@ function ChapterOrigin() {
                                     <circle cx="300" cy="52" r="26" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
                                     
                                     {/* Connectivity lines to inner ring */}
-                                    <line x1="300" y1="96" x2="300" y2="140" stroke={moon.color} strokeWidth="1.5" opacity="0.1" filter="url(#magicBloom)" strokeDasharray="4 4" />
+                                    <line x1="300" y1="96" x2="300" y2="140" stroke={moon.color} strokeWidth="1" opacity="0.06" strokeDasharray="4 4" />
                                 </g>
                             ))}
                         </g>
 
                         {/* Inner rotating sun/moon burst */}
-                        <g style={{ transformOrigin: '300px 300px', animation: 'circleSpin 100s ease-in-out infinite alternate' }}>
-                            {/* Inner protective barrier */}
+                        <g style={{ transformOrigin: '300px 300px', animation: 'circleSpin 100s ease-in-out infinite alternate', willChange: 'transform' }}>
+                            {/* Inner protective barrier — vibrant */}
                             <circle cx="300" cy="300" r="150" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.1" strokeDasharray="1 4" />
-                            <circle cx="300" cy="300" r="140" fill="none" stroke="url(#goldRing)" strokeWidth="2" strokeDasharray="12 8" opacity="0.25" filter="url(#magicBloom)"/>
+                            <circle cx="300" cy="300" r="140" fill="none" stroke="url(#goldRing)" strokeWidth="2" strokeDasharray="12 8" opacity="0.2" filter="url(#magicBloom)" />
                             <circle cx="300" cy="300" r="132" fill="none" stroke="#5B5BFF" strokeWidth="1" opacity="0.1" />
 
                             <circle cx="300" cy="300" r="105" fill="none" stroke="#FFD166" strokeWidth="1" opacity="0.1" strokeDasharray="4 4" />
 
-                            {/* Intricate wavy rays */}
+                            {/* Intricate wavy rays — boosted */}
                             {[...Array(28)].map((_, i) => (
                                 <g key={`ray-group-${i}`} transform={`rotate(${i * (360 / 28)} 300 300)`}>
                                     <path
                                         d="M 300 105 C 320 120, 280 130, 300 150"
                                         fill="none"
                                         stroke={i % 2 === 0 ? "#FFD166" : "#00D4A0"}
-                                        strokeWidth="1.5"
-                                        opacity="0.2"
-                                        filter="url(#magicBloom)"
-                                    />                                    {/* Micro-nodes on rays */}
-                                    <circle cx="300" cy="150" r="2.5" fill={i % 2 === 0 ? "#FFD166" : "#00D4A0"} filter="url(#coreGlow)" opacity="0.7" />
+                                        strokeWidth="1.2"
+                                        opacity="0.18"
+                                    />
+                                    {/* Micro-nodes on rays */}
+                                    <circle cx="300" cy="150" r="2.5" fill={i % 2 === 0 ? "#FFD166" : "#00D4A0"} opacity="0.35" />
                                 </g>
                             ))}
                         </g>
@@ -678,6 +684,54 @@ function ChapterOrigin() {
                             background: 'linear-gradient(90deg, transparent, #FF8C6B, transparent)',
                         }}
                     />
+                </motion.div>
+
+                {/* === PHASE C NEBULA BACKGROUND === */}
+                <motion.div
+                    className="absolute inset-0 pointer-events-none mix-blend-screen overflow-hidden z-20"
+                    style={{ opacity: cardsContainerOpacity }}
+                >
+                    {/* Emerald left nebula */}
+                    <div
+                        className="absolute rounded-[100%] blur-[100px]"
+                        style={{
+                            width: '70vw', height: '120vh', maxWidth: '700px',
+                            left: '-20%', top: '-10%',
+                            background: 'radial-gradient(ellipse at center, rgba(0,212,160,0.45) 0%, rgba(0,100,80,0.25) 45%, transparent 70%)',
+                            animation: 'phaseCNebulaLeft 50s linear infinite',
+                            willChange: 'transform',
+                        }}
+                    />
+                    {/* Gold right nebula */}
+                    <div
+                        className="absolute rounded-[100%] blur-[100px]"
+                        style={{
+                            width: '70vw', height: '120vh', maxWidth: '700px',
+                            right: '-20%', bottom: '-10%',
+                            background: 'radial-gradient(ellipse at center, rgba(255,209,102,0.4) 0%, rgba(200,120,0,0.2) 45%, transparent 70%)',
+                            animation: 'phaseCNebulaRight 60s linear infinite',
+                            willChange: 'transform',
+                        }}
+                    />
+                    {/* Centre deep imperial bloom */}
+                    <div
+                        className="absolute rounded-full blur-[140px]"
+                        style={{
+                            width: '60vw', height: '60vw', maxWidth: '600px', maxHeight: '600px',
+                            left: '50%', top: '50%',
+                            background: 'radial-gradient(circle, rgba(91,91,255,0.25) 0%, rgba(30,20,80,0.15) 50%, transparent 75%)',
+                            animation: 'phaseCBloom 8s ease-in-out infinite',
+                            willChange: 'transform, opacity',
+                        }}
+                    />
+                    {/* Top-left accent */}
+                    <div className="absolute rounded-full blur-[80px] opacity-60"
+                        style={{ width: '40vw', height: '50vh', left: '-5%', top: '5%',
+                            background: 'radial-gradient(circle, rgba(0,212,160,0.3) 0%, transparent 65%)', willChange: 'transform' }} />
+                    {/* Bottom-right accent */}
+                    <div className="absolute rounded-full blur-[80px] opacity-60"
+                        style={{ width: '40vw', height: '50vh', right: '-5%', bottom: '5%',
+                            background: 'radial-gradient(circle, rgba(255,209,102,0.3) 0%, transparent 65%)', willChange: 'transform' }} />
                 </motion.div>
 
                 {/* Phase C: Mission & Vision with Mist */}
@@ -1029,12 +1083,16 @@ function ChapterOrigin() {
     );
 }
 
-// ============ PATHMAKERS CONSTELLATION ============
-function PathmakersConstellation() {
-    const [stars, setStars] = useState<{ id: number; x: number; y: number; size: number; color: string; phase: number }[]>([]);
-    const [backgroundStars, setBackgroundStars] = useState<{ id: number; x: number; y: number; size: number; color: string; phase: number }[]>([]);
-    const [connections, setConnections] = useState<{ id: string; x1: number; y1: number; x2: number; y2: number; color: string; delay: number }[]>([]);
-    const [energyParticles, setEnergyParticles] = useState<{ id: number; pathId: string; progress: number; size: number; speed: number; delay: number }[]>([]);
+// ============ PATHMAKERS STARFIELD ============
+const pathmakersStyles = `
+@keyframes bgStarTwinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.7; }
+}
+`;
+
+function PathmakersStarfield({ isInView }: { isInView: boolean }) {
+    const [stars, setStars] = useState<{ id: number; x: number; y: number; size: number; color: string; duration: number; delay: number }[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
@@ -1048,103 +1106,48 @@ function PathmakersConstellation() {
     useEffect(() => {
         const colors = ['#FFFFFF', '#B0B0FF', '#FFD166', '#00D4A0', '#FF8C6B'];
 
-        // Gemini Constellation Points with phase for coordinated pulsing waves
-        const geminiStars = [
-            // Castor (Left Twin) - Phased pulsing from head to feet
-            { id: 100, x: 35, y: 15, size: 4.5, color: '#FFD166', phase: 0 },
-            { id: 101, x: 38, y: 30, size: 4.0, color: '#B0B0FF', phase: 0.5 },
-            { id: 102, x: 42, y: 55, size: 3.5, color: '#FFFFFF', phase: 1 },
-            { id: 103, x: 35, y: 80, size: 3.8, color: '#B0B0FF', phase: 1.5 },
-            { id: 104, x: 50, y: 85, size: 3.5, color: '#FFFFFF', phase: 2 },
-            { id: 105, x: 25, y: 40, size: 3.2, color: '#00D4A0', phase: 0.3 },
-
-            // Pollux (Right Twin) - Mirror phase pattern
-            { id: 106, x: 65, y: 20, size: 5.0, color: '#FFD166', phase: 0 },
-            { id: 107, x: 62, y: 35, size: 4.0, color: '#B0B0FF', phase: 0.5 },
-            { id: 108, x: 58, y: 60, size: 3.5, color: '#FFFFFF', phase: 1 },
-            { id: 109, x: 55, y: 85, size: 3.8, color: '#B0B0FF', phase: 1.5 },
-            { id: 110, x: 70, y: 80, size: 3.5, color: '#FFFFFF', phase: 2 },
-            { id: 111, x: 75, y: 45, size: 3.2, color: '#00D4A0', phase: 0.3 },
-
-            // Bridge Stars - The connecting energy points
-            { id: 112, x: 50, y: 40, size: 3.0, color: '#FFFFFF', phase: 0.2 },
-            { id: 113, x: 48, y: 58, size: 2.8, color: '#B0B0FF', phase: 0.8 },
-            { id: 114, x: 52, y: 72, size: 2.8, color: '#00D4A0', phase: 1.2 },
-        ];
-
-        // Ambient background stars
-        const backgroundStars = Array.from({ length: 200 }).map((_, i) => ({
+        // General scattered stars
+        const scattered = Array.from({ length: 400 }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
-            size: Math.random() * 0.05 + 0.02,
+            size: Math.random() * 0.04 + 0.01,
             color: colors[Math.floor(Math.random() * colors.length)],
-            phase: Math.random() * Math.PI * 2,
+            duration: 3 + Math.random() * 4,
+            delay: Math.random() * 5,
         }));
 
-        // Gemini Connections - Ordered for sequential drawing from right to left
-        const geminiConnections = [
-            // START: Pollux (Right Twin) - Primary source star 106
-            { id: 'p1', x1: 65, y1: 20, x2: 62, y2: 35, color: '#FFD166', delay: 0.5 }, // Head to Shoulder
-            { id: 'p5', x1: 62, y1: 35, x2: 75, y2: 45, color: '#00D4A0', delay: 1.0 }, // Shoulder to Hand
-            { id: 'p2', x1: 62, y1: 35, x2: 58, y2: 60, color: '#B0B0FF', delay: 1.2 }, // Shoulder to Hip
-            { id: 'p3', x1: 58, y1: 60, x2: 55, y2: 85, color: '#FFFFFF', delay: 1.8 }, // Hip to Foot 1
-            { id: 'p4', x1: 58, y1: 60, x2: 70, y2: 80, color: '#FFFFFF', delay: 2.0 }, // Hip to Foot 2
+        // Milky Way band — dense cluster of tiny stars along a diagonal stripe
+        const milkyWay = Array.from({ length: 600 }, (_, i) => {
+            // Band runs from top-left to bottom-right with gaussian-like spread
+            const t = Math.random();
+            const centerX = 10 + t * 80;
+            const centerY = 5 + t * 90;
+            // Spread perpendicular to the diagonal (narrower = tighter band)
+            const spread = (Math.random() + Math.random() + Math.random()) / 3 - 0.5; // approx gaussian -0.5..0.5
+            const offsetX = spread * 25;
+            const offsetY = spread * -20;
+            return {
+                id: 400 + i,
+                x: Math.min(100, Math.max(0, centerX + offsetX)),
+                y: Math.min(100, Math.max(0, centerY + offsetY)),
+                size: Math.random() * 0.025 + 0.005,
+                color: ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#B0B0FF', '#FFD166', '#E8E0D4'][Math.floor(Math.random() * 6)],
+                duration: 2 + Math.random() * 5,
+                delay: Math.random() * 6,
+            };
+        });
 
-            // BRIDGE: Right to Left
-            { id: 'b2', x1: 65, y1: 20, x2: 35, y2: 15, color: '#FFD166', delay: 1.0 }, // Head to Head (Pollux to Castor)
-            { id: 'b1', x1: 62, y1: 35, x2: 38, y2: 30, color: '#B0B0FF', delay: 1.5 }, // Shoulder to Shoulder
-            { id: 'b9', x1: 58, y1: 60, x2: 42, y2: 55, color: '#FFFFFF', delay: 2.2 }, // Hip to Hip
-            { id: 'b11', x1: 75, y1: 45, x2: 25, y2: 40, color: '#00D4A0', delay: 1.8 }, // Hand to Hand
-            { id: 'b10', x1: 55, y1: 85, x2: 35, y2: 80, color: '#B0B0FF', delay: 2.5 }, // Foot to Foot
-
-            // CASTOR (Left Twin) - Secondary branch
-            { id: 'c1', x1: 35, y1: 15, x2: 38, y2: 30, color: '#FFD166', delay: 1.5 }, // Head to Shoulder
-            { id: 'c5', x1: 38, y1: 30, x2: 25, y2: 40, color: '#00D4A0', delay: 2.0 }, // Shoulder to Hand
-            { id: 'c2', x1: 38, y1: 30, x2: 42, y2: 55, color: '#B0B0FF', delay: 2.2 }, // Shoulder to Hip
-            { id: 'c3', x1: 42, y1: 55, x2: 35, y2: 80, color: '#FFFFFF', delay: 2.8 }, // Hip to Foot 1
-            { id: 'c4', x1: 42, y1: 55, x2: 50, y2: 85, color: '#FFFFFF', delay: 3.0 }, // Hip to Foot 2
-
-            // INNER BRIDGE DETAILS
-            { id: 'b4', x1: 62, y1: 35, x2: 50, y2: 40, color: '#FFFFFF', delay: 2.0 },
-            { id: 'b3', x1: 38, y1: 30, x2: 50, y2: 40, color: '#FFFFFF', delay: 2.5 },
-            { id: 'b5', x1: 50, y1: 40, x2: 48, y2: 58, color: '#B0B0FF', delay: 2.8 },
-            { id: 'b8', x1: 48, y1: 58, x2: 42, y2: 55, color: '#B0B0FF', delay: 3.2 },
-            { id: 'b6', x1: 48, y1: 58, x2: 52, y2: 72, color: '#00D4A0', delay: 3.2 },
-            { id: 'b7', x1: 52, y1: 72, x2: 58, y2: 60, color: '#00D4A0', delay: 3.5 },
-        ];
-
-        // Energy particles that flow along the celestial pathways
-        const particles = geminiConnections.flatMap((conn, connIdx) =>
-            Array.from({ length: 2 }).map((_, i) => ({
-                id: connIdx * 10 + i,
-                pathId: conn.id,
-                progress: (i * 0.5) % 1,
-                size: 1 + Math.random() * 1.2,
-                speed: 0.15 + Math.random() * 0.2,
-                delay: Math.random() * 1.5,
-            }))
-        );
-
-        setStars(geminiStars);
-        setBackgroundStars(backgroundStars);
-        setConnections(geminiConnections);
-        setEnergyParticles(particles);
+        setStars([...scattered, ...milkyWay]);
     }, []);
-
-    // Linear interpolation for straight lines
-    const getPointOnLine = (conn: any, t: number) => {
-        const x = conn.x1 + (conn.x2 - conn.x1) * t;
-        const y = conn.y1 + (conn.y2 - conn.y1) * t;
-        return { x, y };
-    };
 
     return (
         <motion.div
             ref={containerRef}
             className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
-            style={{ opacity }}
+            style={{ opacity, contain: 'layout style paint' }}
         >
+            <style>{pathmakersStyles}</style>
             <motion.div className="absolute inset-0" style={{ y: yTransform }}>
                 {/* Ethereal nebula background */}
                 <div
@@ -1152,240 +1155,43 @@ function PathmakersConstellation() {
                     style={{
                         background: 'radial-gradient(ellipse at 50% 50%, rgba(176, 176, 255, 0.2) 0%, rgba(0, 212, 160, 0.1) 40%, transparent 70%)',
                         filter: 'blur(80px)',
+                        willChange: 'transform',
+                    }}
+                />
+
+                {/* Milky Way nebula band — diagonal hazy glow */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: 'linear-gradient(135deg, transparent 15%, rgba(176,176,255,0.04) 30%, rgba(255,255,255,0.06) 45%, rgba(200,190,255,0.05) 55%, rgba(255,209,102,0.03) 65%, transparent 80%)',
+                        filter: 'blur(40px)',
+                    }}
+                />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: 'linear-gradient(135deg, transparent 25%, rgba(255,255,255,0.03) 40%, rgba(180,180,255,0.04) 50%, rgba(255,255,255,0.03) 60%, transparent 75%)',
+                        filter: 'blur(20px)',
                     }}
                 />
 
                 <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full overflow-visible">
-                    <defs>
-                        <filter id="cleanGlow" x="-100%" y="-100%" width="300%" height="300%">
-                            <feGaussianBlur stdDeviation="0.5" result="blur" />
-                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                        </filter>
-                    </defs>
-
-                    {/* Ambient vibrant background stars */}
-                    {backgroundStars.map((star) => (
-                        <motion.circle
+                    {stars.map((star) => (
+                        <circle
                             key={`bg-star-${star.id}`}
                             cx={star.x}
                             cy={star.y}
                             r={star.size}
                             fill={star.color}
-                            initial={{ opacity: 0 }}
-                            animate={{ 
-                                opacity: [0.2, 0.8, 0.2],
-                                scale: [1, 1.5, 1],
-                            }}
-                            transition={{
-                                duration: 3 + Math.random() * 4,
-                                repeat: Infinity,
-                                delay: Math.random() * 5,
-                                ease: "easeInOut"
+                            style={{
+                                opacity: isInView ? undefined : 0,
+                                animation: isInView
+                                    ? `bgStarTwinkle ${star.duration}s ease-in-out ${star.delay}s infinite`
+                                    : 'none',
                             }}
                         />
                     ))}
-
-                    {/* Straight connection lines with flowing energy */}
-                    {connections.map((conn) => (
-                        <g key={conn.id}>
-                            {/* Base vibrant connection path - SOLID Straight Line */}
-                            <motion.line
-                                x1={conn.x1}
-                                y1={conn.y1}
-                                initial={{ x2: conn.x1, y2: conn.y1, opacity: 0 }}
-                                animate={{ x2: conn.x2, y2: conn.y2, opacity: 0.8 }}
-                                transition={{ duration: 1.5, ease: "easeInOut", delay: conn.delay }}
-                                stroke={conn.color}
-                                strokeWidth="1.2"
-                                vectorEffect="non-scaling-stroke"
-                                strokeLinecap="round"
-                                filter="url(#cleanGlow)"
-                            />
-
-                            {/* Secondary glowing layer for thickness/vibrancy - SOLID */}
-                            <motion.line
-                                x1={conn.x1}
-                                y1={conn.y1}
-                                initial={{ x2: conn.x1, y2: conn.y1, opacity: 0 }}
-                                animate={{ x2: conn.x2, y2: conn.y2, opacity: 0.3 }}
-                                transition={{ duration: 1.5, ease: "easeInOut", delay: conn.delay }}
-                                stroke={conn.color}
-                                strokeWidth="4"
-                                vectorEffect="non-scaling-stroke"
-                                strokeLinecap="round"
-                                style={{ filter: 'blur(6px)' }}
-                            />
-
-                            {/* Internal core shine - SOLID */}
-                            <motion.line
-                                x1={conn.x1}
-                                y1={conn.y1}
-                                initial={{ x2: conn.x1, y2: conn.y1, opacity: 0 }}
-                                animate={{ x2: conn.x2, y2: conn.y2, opacity: 0.5 }}
-                                transition={{ duration: 1.5, ease: "easeInOut", delay: conn.delay }}
-                                stroke="#FFFFFF"
-                                strokeWidth="0.5"
-                                vectorEffect="non-scaling-stroke"
-                                strokeLinecap="round"
-                            />
-                        </g>
-                    ))}
-
-                    {/* Traveling energy packets */}
-                    {energyParticles.map((particle) => {
-                        const conn = connections.find(c => c.id === particle.pathId);
-                        if (!conn) return null;
-
-                        const pos = getPointOnLine(conn, particle.progress);
-
-                        return (
-                            <motion.circle
-                                key={`particle-${particle.id}`}
-                                cx={pos.x}
-                                cy={pos.y}
-                                r={particle.size * 0.1}
-                                fill="#FFFFFF"
-                                filter="url(#cleanGlow)"
-                                animate={{
-                                    opacity: [0, 0.8, 0],
-                                    scale: [0.5, 1.5, 0.5],
-                                }}
-                                transition={{
-                                    duration: particle.speed * 3,
-                                    repeat: Infinity,
-                                    delay: particle.delay,
-                                    ease: 'linear',
-                                }}
-                            />
-                        );
-                    })}
                 </svg>
-
-                {stars.map((star) => {
-                    const phase = star.phase || 0;
-                    return (
-                        <motion.div
-                            key={star.id}
-                            className="absolute"
-                            style={{
-                                top: `${star.y}%`,
-                                left: `${star.x}%`,
-                                x: '-50%',
-                                y: '-50%',
-                            }}
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            whileInView={{
-                                opacity: [0.3, 1, 0.6],
-                                scale: [0.8, 1.1, 1],
-                            }}
-                            viewport={{ once: true }}
-                            transition={{
-                                delay: phase * 0.4,
-                                duration: 2.5,
-                                times: [0, 0.4, 1],
-                                repeat: Infinity,
-                                repeatDelay: 1.5 + phase,
-                                ease: 'easeInOut',
-                            }}
-                        >
-                            <div className="relative flex items-center justify-center" style={{ color: star.color }}>
-                                {/* Outer nebula bloom */}
-                                <motion.div
-                                    className="absolute rounded-full"
-                                    style={{
-                                        width: star.size * 26,
-                                        height: star.size * 26,
-                                        backgroundColor: star.color,
-                                        opacity: 0.08,
-                                        filter: 'blur(30px)',
-                                    }}
-                                    animate={{
-                                        scale: [1, 1.5, 1],
-                                        opacity: [0.03, 0.12, 0.03],
-                                    }}
-                                    transition={{
-                                        duration: 6 + phase,
-                                        repeat: Infinity,
-                                        ease: 'easeInOut',
-                                    }}
-                                />
-
-                                {/* Primary atmospheric glow */}
-                                <motion.div
-                                    className="absolute rounded-full"
-                                    style={{
-                                        width: star.size * 18,
-                                        height: star.size * 18,
-                                        backgroundColor: star.color,
-                                        opacity: 0.35,
-                                        filter: 'blur(14px)',
-                                    }}
-                                    animate={{
-                                        scale: [1, 1.4, 1],
-                                        opacity: [0.2, 0.5, 0.2],
-                                    }}
-                                    transition={{
-                                        duration: 4 + phase,
-                                        repeat: Infinity,
-                                        ease: 'easeInOut',
-                                    }}
-                                />
-
-                                {/* Inner radiance */}
-                                <div
-                                    className="absolute rounded-full"
-                                    style={{
-                                        width: star.size * 6,
-                                        height: star.size * 6,
-                                        backgroundColor: star.color,
-                                        opacity: 0.5,
-                                        filter: 'blur(4px)',
-                                    }}
-                                />
-
-                                {/* Bright stellar core */}
-                                <div
-                                    className="relative rounded-full"
-                                    style={{
-                                        width: star.size * 3.2,
-                                        height: star.size * 3.2,
-                                        backgroundColor: '#FFFFFF',
-                                        boxShadow: `
-                                            0 0 ${star.size * 4}px ${star.color},
-                                            0 0 ${star.size * 8}px ${star.color},
-                                            0 0 ${star.size * 15}px ${star.color}dd,
-                                            0 0 ${star.size * 25}px ${star.color}aa
-                                        `,
-                                    }}
-                                />
-
-                                {/* Cross-shaped starburst - subtle */}
-                                <motion.div
-                                    className="absolute w-[1px] h-full opacity-40"
-                                    style={{
-                                        background: `linear-gradient(to bottom, transparent, ${star.color}, transparent)`,
-                                        left: '50%',
-                                        top: 0,
-                                        transform: 'translateX(-50%) rotate(45deg)',
-                                    }}
-                                    animate={{ opacity: [0.1, 0.5, 0.1] }}
-                                    transition={{ duration: 5, repeat: Infinity, delay: phase * 0.5 }}
-                                />
-                                <motion.div
-                                    className="absolute h-[1px] w-full opacity-40"
-                                    style={{
-                                        background: `linear-gradient(to right, transparent, ${star.color}, transparent)`,
-                                        top: '50%',
-                                        left: 0,
-                                        transform: 'translateY(-50%) rotate(45deg)',
-                                    }}
-                                    animate={{ opacity: [0.1, 0.5, 0.1] }}
-                                    transition={{ duration: 5, repeat: Infinity, delay: phase * 0.5 + 0.3 }}
-                                />
-                            </div>
-                        </motion.div>
-                    );
-                })}
             </motion.div>
         </motion.div>
     );
@@ -1393,19 +1199,23 @@ function PathmakersConstellation() {
 
 // ============ CHAPTER 3: THE PATHMAKERS (TEAM) ============
 function ChapterPathmakers() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
+
     return (
-        <section className="min-h-screen flex items-center justify-center py-16 px-6 relative overflow-hidden" style={{ backgroundColor: 'var(--color-void)' }}>
+        <section ref={sectionRef} className="min-h-screen flex items-center justify-center py-16 px-6 relative overflow-hidden" style={{ backgroundColor: 'var(--color-void)', contain: 'layout style' }}>
             {/* Constellation is absolute inset-0 to cover whole section background */}
             <div className="absolute inset-0 z-0">
-                <PathmakersConstellation />
+                <PathmakersStarfield isInView={isInView} />
             </div>
 
             {/* Central unifying nebula glow */}
-            <div 
+            <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-full pointer-events-none z-0 opacity-40"
                 style={{
                     background: 'radial-gradient(circle at center, rgba(91,91,255,0.08) 0%, rgba(0,212,160,0.05) 30%, transparent 70%)',
                     filter: 'blur(100px)',
+                    willChange: 'transform',
                 }}
             />
             
@@ -1460,8 +1270,8 @@ function ChapterPathmakers() {
                                     ease: [0.22, 1, 0.36, 1],
                                 }}
                             >
-                                <GoldFrame className="flex-1">
-                                    <Card moonColor={moon.color} delay={0} className="flex-1 flex flex-col items-center text-center p-6">
+                                <GoldFrame color={moon.color} className="flex-1">
+                                    <div className="flex-1 flex flex-col items-center text-center p-6">
                                         {/* Hexagonal avatar with realistic moon rendering */}
                                         <div className="flex justify-center mb-5">
                                             {/* Golden Border Wrapper for Hexagon */}
@@ -1575,7 +1385,7 @@ function ChapterPathmakers() {
                                                 </span>
                                             </div>
                                         </div>
-                                    </Card>
+                                    </div>
                                 </GoldFrame>
                             </motion.div>
                         );
